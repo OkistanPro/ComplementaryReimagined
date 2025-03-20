@@ -12,7 +12,7 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(736.0, 416.0),  // Sand
     vec2(656.0, 368.0),  // Oak Wood (Log)
     vec2(480.0, 240.0),   // Birch Wood (Log)
-        vec2(160.0, 256.0)  // normal Bricks
+    vec2(160.0, 256.0)  // normal Bricks
 
 );
 

@@ -169,6 +169,8 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
     #include "/lib/misc/distantLightBokeh.glsl"
 #endif
 
+#define TEXSYN_ENABLE
+
 #ifdef TEXSYN_ENABLE
     #include "/lib/materials/materialMethods/textureSynthesis.glsl"
     #include "/lib/materials/materialHandling/textureSynthesisUVHints.glsl"
@@ -176,107 +178,135 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
 
 //Program//
 void main() {
-#if ANISOTROPIC_FILTER == 0
-#ifdef TEXSYN_ENABLE
-    ivec3 blockPosFrag = ivec3(floor(worldPos + cameraPosition + 0.001));
-    bool applyTilingAndBlending = false;
 
-    // Loop through normal blocks
-    for (int i = 0; i < NUM_NORMAL_BLOCKS; i++) {
-        vec2 minUVValue = minUVNormal(i);
-        vec2 maxUVValue = maxUVNormal(i);
-        if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-            applyTilingAndBlending = true;
-            albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 16.0, 1.0).rgba;
-            break;
-        }
-    }
+    vec3 screenPos = vec3(gl_FragCoord.xy / vec2(viewWidth, viewHeight), gl_FragCoord.z);
+    #ifdef TAA
+        vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
+    #else
+        vec3 viewPos = ScreenToView(screenPos);
+    #endif
 
-    // Loop through 4 bricks blocks
-    if (!applyTilingAndBlending) {
-        for (int i = 0; i < NUM_4BRICKS_BLOCKS; i++) {
-            vec2 minUVValue = minUV4Bricks(i);
-            vec2 maxUVValue = maxUV4Bricks(i);
+    float lViewPos = length(viewPos);
+    vec3 nViewPos = normalize(viewPos);
+    vec3 playerPos = ViewToPlayer(viewPos);
 
+    float dither = Bayer64(gl_FragCoord.xy);
+    #ifdef TAA
+        dither = fract(dither + goldenRatio * mod(float(frameCounter), 3600.0));
+    #endif
+
+    #ifdef TEXSYN_ENABLE
+        ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
+        bool applyTilingAndBlending = false;
+    #endif
+
+    #ifdef TEXSYN_ENABLE
+    #if ANISOTROPIC_FILTER == 0
+
+        vec4 color;
+
+        // Loop through normal blocks
+        for (int i = 0; i < NUM_NORMAL_BLOCKS; i++) {
+            vec2 minUVValue = minUVNormal(i);
+            vec2 maxUVValue = maxUVNormal(i);
             if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                 applyTilingAndBlending = true;
-                albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 16.0, 0.25).rgba;
+                color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
                 break;
             }
         }
-    }
 
-    // Loop through 2 bricks blocks
-    if (!applyTilingAndBlending) {
-        for (int i = 0; i < NUM_2BRICKS_BLOCKS; i++) {
-            vec2 minUVValue = minUV2Bricks(i);
-            vec2 maxUVValue = maxUV2Bricks(i);
+        // Loop through 4 bricks blocks
+        if (!applyTilingAndBlending) {
+            for (int i = 0; i < NUM_4BRICKS_BLOCKS; i++) {
+                vec2 minUVValue = minUV4Bricks(i);
+                vec2 maxUVValue = maxUV4Bricks(i);
 
-            if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                applyTilingAndBlending = true;
-                    albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
+                    applyTilingAndBlending = true;
+                    color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 0.25).rgba;
                     break;
+                }
             }
         }
-    }
 
-    if (!applyTilingAndBlending) {
-        albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 2.0, 0.5).rgba;
-    }
-#else
-    vec4 color = texture2D(tex, texCoord);
-#endif
-#else
-#ifdef TEXSYN_ENABLE
-    ivec3 blockPosFrag = ivec3(floor(worldPos + cameraPosition + 0.001));
-    bool applyTilingAndBlending = false;
+        // Loop through 2 bricks blocks
+        if (!applyTilingAndBlending) {
+            for (int i = 0; i < NUM_2BRICKS_BLOCKS; i++) {
+                vec2 minUVValue = minUV2Bricks(i);
+                vec2 maxUVValue = maxUV2Bricks(i);
 
-    // Loop through normal blocks
-    for (int i = 0; i < NUM_NORMAL_BLOCKS; i++) {
-        vec2 minUVValue = minUVNormal(i);
-        vec2 maxUVValue = maxUVNormal(i);
-        if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-            applyTilingAndBlending = true;
-            albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 16.0, 1.0).rgba;
-            break;
+                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
+                    applyTilingAndBlending = true;
+                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                        break;
+                }
+            }
         }
-    }
 
-    // Loop through 4 bricks blocks
-    if (!applyTilingAndBlending) {
-        for (int i = 0; i < NUM_4BRICKS_BLOCKS; i++) {
-            vec2 minUVValue = minUV4Bricks(i);
-            vec2 maxUVValue = maxUV4Bricks(i);
+        if (!applyTilingAndBlending) {
+            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+        }
 
+    #else
+
+        vec4 color;
+
+        // Loop through normal blocks
+        for (int i = 0; i < NUM_NORMAL_BLOCKS; i++) {
+            vec2 minUVValue = minUVNormal(i);
+            vec2 maxUVValue = maxUVNormal(i);
             if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                 applyTilingAndBlending = true;
-                albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 16.0, 0.25).rgba;
+                color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
                 break;
             }
         }
-    }
 
-    // Loop through 2 bricks blocks
-    if (!applyTilingAndBlending) {
-        for (int i = 0; i < NUM_2BRICKS_BLOCKS; i++) {
-            vec2 minUVValue = minUV2Bricks(i);
-            vec2 maxUVValue = maxUV2Bricks(i);
+        // Loop through 4 bricks blocks
+        if (!applyTilingAndBlending) {
+            for (int i = 0; i < NUM_4BRICKS_BLOCKS; i++) {
+                vec2 minUVValue = minUV4Bricks(i);
+                vec2 maxUVValue = maxUV4Bricks(i);
 
-            if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                applyTilingAndBlending = true;
-                    albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
+                    applyTilingAndBlending = true;
+                    color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 0.25).rgba;
                     break;
+                }
             }
         }
-    }
 
-    if (!applyTilingAndBlending) {
-        albedo.rgba = TilingAndBlending(texture, texCoord, blockPosFrag, 2.0, 0.5).rgba;
-    }
+        // Loop through 2 bricks blocks
+        if (!applyTilingAndBlending) {
+            for (int i = 0; i < NUM_2BRICKS_BLOCKS; i++) {
+                vec2 minUVValue = minUV2Bricks(i);
+                vec2 maxUVValue = maxUV2Bricks(i);
 
-#else
-    vec4 color = textureAF(tex, texCoord);
-#endif
+                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
+                    applyTilingAndBlending = true;
+                    color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                    break;
+                }
+            }
+        }
+
+        if (!applyTilingAndBlending) {
+            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+        }
+    #endif
+
+    #else
+
+    #if ANISOTROPIC_FILTER == 0
+        vec4 color = texture2D(tex, texCoord);
+    #else
+        vec4 color = textureAF(tex, texCoord);
+    #endif
+
+    #endif
+
+
 
     float smoothnessD = 0.0, materialMask = 0.0, skyLightFactor = 0.0;
 
@@ -286,21 +316,6 @@ void main() {
 
     vec3 colorP = color.rgb;
     color.rgb *= glColor.rgb;
-
-    vec3 screenPos = vec3(gl_FragCoord.xy / vec2(viewWidth, viewHeight), gl_FragCoord.z);
-    #ifdef TAA
-        vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
-    #else
-        vec3 viewPos = ScreenToView(screenPos);
-    #endif
-    float lViewPos = length(viewPos);
-    vec3 nViewPos = normalize(viewPos);
-    vec3 playerPos = ViewToPlayer(viewPos);
-
-    float dither = Bayer64(gl_FragCoord.xy);
-    #ifdef TAA
-        dither = fract(dither + goldenRatio * mod(float(frameCounter), 3600.0));
-    #endif
 
     int subsurfaceMode = 0;
     bool noSmoothLighting = false, noDirectionalShading = false, noVanillaAO = false, centerShadowBias = false, noGeneratedNormals = false, doTileRandomisation = true;

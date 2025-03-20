@@ -90,6 +90,8 @@ vec2 offsetToXxX(vec2 nbBlocks, in vec2 offset, in vec2 uv, float offsetAdjust, 
 //offsetToXxX(nbBlocks, offset, uv, 16.0, 1.0)
 //vec2 offsetTo16x16Normal(vec2 nbBlocks, in vec2 offset, in vec2 uv)
 
+#if ANISOTROPIC_FILTER == 0
+
 vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, float offsetAdjust, float heightAdjust)
 {
     // Dynamically determine the atlas size
@@ -124,12 +126,15 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
     //vec4 content1 = texture2DLod(sampler, uvContent1, 0.0) - mean;
     //vec4 content2 = texture2DLod(sampler, uvContent2, 0.0) - mean;
 
-    vec4 content1 = texture2D(tex, uvContent1) - mean;
-    vec4 content2 = texture2D(tex, uvContent2) - mean;
+    vec4 content1 = texture(tex, uvContent1) - mean;
+    vec4 content2 = texture(tex, uvContent2) - mean;
 
     vec4 value = content1 * weights.x + content2 * weights.y;
     return value / W + mean;
 }
+
+#else
+#include "anisotropicFiltering.glsl"
 
 vec4 TilingAndBlendingAF(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, float offsetAdjust, float heightAdjust)
 {
@@ -171,3 +176,5 @@ vec4 TilingAndBlendingAF(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, fl
     vec4 value = content1 * weights.x + content2 * weights.y;
     return value / W + mean;
 }
+
+#endif
