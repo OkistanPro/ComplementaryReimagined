@@ -188,6 +188,8 @@ value.RP_MODE.1=§bIntegrated PBR+
 value.RP_MODE.2=§eseuspbr (RP Required)
 value.RP_MODE.3=§elabPBR (RP Required)
 
+option.TEXSYN_ENABLE=Texture Synthesis
+
 option.WATER_REFLECT_QUALITY=Water Reflection Quality
 option.WATER_REFLECT_QUALITY.comment=Adjusts the visual quality of reflections that appear on translucents. §cMedium§r: Screenspace ray-traced reflections on water and translucents. §ePotato§r: Replaces water and translucent reflections with a faster method, may look incorrect in some situations. §aOFF§r: No reflections.
 value.WATER_REFLECT_QUALITY.-1=§aOFF
