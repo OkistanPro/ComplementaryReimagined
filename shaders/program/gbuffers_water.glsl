@@ -14,6 +14,7 @@ in vec2 texCoord;
 in vec2 lmCoord;
 in vec2 signMidCoordPos;
 flat in vec2 absMidCoordPos;
+flat in vec2 midCoord;
 
 flat in vec3 upVec, sunVec, northVec, eastVec;
 in vec3 playerPos;
@@ -30,6 +31,9 @@ in vec4 glColor;
     in vec4 vTexCoordAM;
 #endif
 
+#if ANISOTROPIC_FILTER > 0
+    in vec4 spriteBounds;
+#endif
 //Pipeline Constants//
 
 //Common Variables//
@@ -131,9 +135,32 @@ float GetLinearDepth(float depth) {
     #include "/lib/materials/materialMethods/connectedGlass.glsl"
 #endif
 
+#ifdef ANISOTROPIC_FILTER
+	#include "/lib/materials/materialMethods/anisotropicFiltering.glsl"
+#endif
+
+#define TEXSYN_ENABLE
+
+#ifdef TEXSYN_ENABLE
+    #include "/lib/materials/materialMethods/textureSynthesis.glsl"
+    #include "/lib/materials/materialHandling/textureSynthesisUVHints.glsl"
+#endif
+
 //Program//
 void main() {
-    vec4 colorP = texture2D(tex, texCoord);
+
+    #ifdef TEXSYN_ENABLE
+    	ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
+    	#if ANISOTROPIC_FILTER > 0
+    		vec4 colorP = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    	#else
+    		vec4 colorP = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    	#endif
+    	
+    #else
+    	vec4 colorP = texture2D(tex, texCoord);
+    #endif
+
     vec4 color = colorP * vec4(glColor.rgb, 1.0);
 
     vec3 screenPos = vec3(gl_FragCoord.xy / vec2(viewWidth, viewHeight), gl_FragCoord.z);
@@ -281,6 +308,7 @@ out vec2 texCoord;
 out vec2 lmCoord;
 out vec2 signMidCoordPos;
 flat out vec2 absMidCoordPos;
+flat out vec2 midCoord;
 
 flat out vec3 upVec, sunVec, northVec, eastVec;
 out vec3 playerPos;
@@ -295,6 +323,10 @@ out vec4 glColor;
 
 #ifdef POM
     out vec4 vTexCoordAM;
+#endif
+
+#if ANISOTROPIC_FILTER > 0
+    out vec4 spriteBounds;
 #endif
 
 //Attributes//
@@ -346,7 +378,7 @@ void main() {
 
     viewVector = tbnMatrix * (gl_ModelViewMatrix * gl_Vertex).xyz;
 
-    vec2 midCoord = (gl_TextureMatrix[0] * mc_midTexCoord).st;
+    midCoord = (gl_TextureMatrix[0] * mc_midTexCoord).st;
     vec2 texMinMidCoord = texCoord - midCoord;
     signMidCoordPos = sign(texMinMidCoord);
     absMidCoordPos  = abs(texMinMidCoord);
@@ -367,6 +399,13 @@ void main() {
 
     #ifdef TAA
         gl_Position.xy = TAAJitter(gl_Position.xy, gl_Position.w);
+    #endif
+    
+    #if ANISOTROPIC_FILTER > 0
+        vec2 spriteRadius = abs(texCoord - mc_midTexCoord.xy);
+        vec2 bottomLeft = mc_midTexCoord.xy - spriteRadius;
+        vec2 topRight = mc_midTexCoord.xy + spriteRadius;
+        spriteBounds = vec4(bottomLeft, topRight);
     #endif
 }
 
