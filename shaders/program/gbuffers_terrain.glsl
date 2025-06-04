@@ -245,7 +245,7 @@ void main() {
         }
 
         if (!applyTilingAndBlending) {
-            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
         }
 
     #else
