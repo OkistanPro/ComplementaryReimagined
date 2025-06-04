@@ -39,7 +39,7 @@ vec4 textureAF(sampler2D texSampler, vec2 uv) {
         if (texture2DLod(texSampler, uv, 10000.0).a == 1.0)
             lod = miplevel * 0.4;
     #endif
-
+    
     float samplesDiv2 = ANISOTROPIC_FILTER / 2.0;
     vec2 ADivSamples = A / ANISOTROPIC_FILTER;
 
