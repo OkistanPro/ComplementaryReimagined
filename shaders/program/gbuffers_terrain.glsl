@@ -15,7 +15,7 @@ in vec2 lmCoord;
 in vec2 signMidCoordPos;
 flat in vec2 absMidCoordPos;
 flat in vec2 midCoord;
-flat in vec4 dec;
+in vec4 dec;
 
 flat in vec3 upVec, sunVec, northVec, eastVec;
 in vec3 normal;
@@ -174,25 +174,20 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
 
 #ifdef TEXSYN_ENABLE
     #include "/lib/materials/materialMethods/textureSynthesis.glsl"
-    #include "/lib/materials/materialHandling/textureSynthesisUVHints.glsl"
 #endif
 
 //Program//
 void main() {
     vec3 screenPos = vec3(gl_FragCoord.xy/ vec2(viewWidth, viewHeight), gl_FragCoord.z);
-    //vec3 dec_screenPos = (dec.xyz / dec.w) * 0.5 + 0.5;
     #ifdef TAA
         vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
-        //vec3 dec_viewPos = ScreenToView(vec3(TAAJitter(dec_screenPos.xy, -0.5), dec_screenPos.z));
     #else
         vec3 viewPos = ScreenToView(screenPos);
-        //vec3 dec_viewPos = ScreenToView(dec_screenPos);
     #endif
 
     float lViewPos = length(viewPos);
     vec3 nViewPos = normalize(viewPos);
-    vec3 playerPos = ViewToPlayer(viewPos);
-    //vec3 dec_playerPos = ViewToPlayer(dec_viewPos);
+    vec3 playerPos = ViewToPlayer(viewPos) + dec.xyz; //Get World Coordinate of blocks without the waves
 
     float dither = Bayer64(gl_FragCoord.xy);
     #ifdef TAA
@@ -202,103 +197,30 @@ void main() {
 
     #ifdef TEXSYN_ENABLE
         ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
-        bool applyTilingAndBlending = false;
     #endif
 
     #ifdef TEXSYN_ENABLE
     #if ANISOTROPIC_FILTER == 0
 
         vec4 color;
-
-        // Loop through normal blocks
-        for (int i = 0; i < NUM_NORMAL_BLOCKS; i++) {
-            vec2 minUVValue = minUVNormal(i);
-            vec2 maxUVValue = maxUVNormal(i);
-            if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                applyTilingAndBlending = true;
-                color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
-                break;
-            }
-        }
-
-        // Loop through 4 bricks blocks
-        if (!applyTilingAndBlending) {
-            for (int i = 0; i < NUM_4BRICKS_BLOCKS; i++) {
-                vec2 minUVValue = minUV4Bricks(i);
-                vec2 maxUVValue = maxUV4Bricks(i);
-
-                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                    applyTilingAndBlending = true;
-                    color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 0.25).rgba;
-                    break;
-                }
-            }
-        }
-
-        // Loop through 2 bricks blocks
-        if (!applyTilingAndBlending) {
-            for (int i = 0; i < NUM_2BRICKS_BLOCKS; i++) {
-                vec2 minUVValue = minUV2Bricks(i);
-                vec2 maxUVValue = maxUV2Bricks(i);
-
-                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                    applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
-                        break;
-                }
-            }
-        }
-
-        if (!applyTilingAndBlending) {
-            color.rgba = texture2D(tex, texCoord);
-        }
+    	if (isWhite(texCoord)) {
+    		color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    		//color.rbga = getWhite(texCoord);
+    	} else {
+    		color.rgba = texture(tex, texCoord);
+    		//color.rbga = getWhite(texCoord);
+    	}
 
     #else
 
         vec4 color;
-
-        // Loop through normal blocks
-        for (int i = 0; i < NUM_NORMAL_BLOCKS; i++) {
-            vec2 minUVValue = minUVNormal(i);
-            vec2 maxUVValue = maxUVNormal(i);
-            if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                applyTilingAndBlending = true;
-                color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
-                break;
-            }
-        }
-
-        // Loop through 4 bricks blocks
-        if (!applyTilingAndBlending) {
-            for (int i = 0; i < NUM_4BRICKS_BLOCKS; i++) {
-                vec2 minUVValue = minUV4Bricks(i);
-                vec2 maxUVValue = maxUV4Bricks(i);
-
-                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                    applyTilingAndBlending = true;
-                    color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 0.25).rgba;
-                    break;
-                }
-            }
-        }
-
-        // Loop through 2 bricks blocks
-        if (!applyTilingAndBlending) {
-            for (int i = 0; i < NUM_2BRICKS_BLOCKS; i++) {
-                vec2 minUVValue = minUV2Bricks(i);
-                vec2 maxUVValue = maxUV2Bricks(i);
-
-                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
-                    applyTilingAndBlending = true;
-                    color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
-                    break;
-                }
-            }
-        }
-
-        if (!applyTilingAndBlending) {
-            color.rgba = textureAF(tex, texCoord);
-        }
+    	if (isWhite(texCoord)) {
+    		color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    		//color.rbga = getWhite(texCoord);
+    	} else {
+    		color.rgba = textureAF(tex, texCoord);
+    		//color.rbga = getWhite(texCoord);
+    	}
     #endif
 
     #else
@@ -490,7 +412,7 @@ out vec2 lmCoord;
 out vec2 signMidCoordPos;
 flat out vec2 absMidCoordPos;
 flat out vec2 midCoord;
-flat out vec4 dec;
+out vec4 dec;
 
 flat out vec3 upVec, sunVec, northVec, eastVec;
 out vec3 normal;
@@ -561,10 +483,12 @@ void main() {
 
     #ifdef WAVING_ANYTHING_TERRAIN
         vec4 position = gbufferModelViewInverse * gl_ModelViewMatrix * gl_Vertex;
-        dec = gbufferModelViewInverse * gl_ModelViewMatrix * gl_Vertex;
+        dec = position;
         DoWave(position.xyz, mat);
         
         gl_Position = gl_ProjectionMatrix * gbufferModelView * position;
+        // Offset between the waving block and the stationary block
+        dec = (dec - position);
     #else
         gl_Position = ftransform();
 

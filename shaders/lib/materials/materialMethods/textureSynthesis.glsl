@@ -1,5 +1,7 @@
 #define TEXSYN_PI 3.14159265359
 
+uniform sampler2D synMask;
+
 void SquareGrid(vec2 uv, out vec2 weights, out ivec2 vertex1, out ivec2 vertex2)
 {
     // New code for pixelated transitions
@@ -177,3 +179,18 @@ vec4 TilingAndBlendingAF(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, fl
 }
 
 #endif
+
+bool isWhite(in vec2 uv) {
+	vec2 atlasSize = vec2(textureSize(synMask, 0));
+	vec2 nbBlocks = atlasSize / 16.0;
+	vec2 uv_snap = ((floor((uv*atlasSize) * nbBlocks / atlasSize) * 16.0) + 8.0) / atlasSize;
+	vec4 point = texture(synMask, uv_snap);
+	return point.r != 0.0 && point.g != 0.0 && point.b != 0.0;
+}
+
+vec4 getWhite(in vec2 uv) {
+	vec2 atlasSize = vec2(textureSize(synMask, 0));
+	vec2 nbBlocks = atlasSize / 16.0;
+	vec2 uv_snap = ((floor((uv*atlasSize) * nbBlocks / atlasSize) * 16.0) + 8.0) / atlasSize;
+	return texture(synMask, uv_snap);
+}

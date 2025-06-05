@@ -143,7 +143,6 @@ float GetLinearDepth(float depth) {
 
 #ifdef TEXSYN_ENABLE
     #include "/lib/materials/materialMethods/textureSynthesis.glsl"
-    #include "/lib/materials/materialHandling/textureSynthesisUVHints.glsl"
 #endif
 
 //Program//
