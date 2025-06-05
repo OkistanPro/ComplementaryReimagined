@@ -1,6 +1,6 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 356
+#define NUM_NORMAL_BLOCKS 360
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
 #define DEMI_BLOCKS_TOP 7
@@ -9,6 +9,9 @@
 
 // Define UV offsets for each block category
 const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
+    vec2(336.0, 416.0),
+    vec2(448.0, 128.0),
+    vec2(448.0, 144.0),
     vec2(32.0, 80.0),
 vec2(48.0, 80.0),
 vec2(80.0, 80.0),
@@ -364,7 +367,8 @@ vec2(528.0, 368.0),
 vec2(528.0, 464.0),
 vec2(528.0, 480.0),
 vec2(544.0, 48.0),
-vec2(544.0, 64.0)
+vec2(544.0, 64.0),
+vec2(448.0, 112.0)
 );
 
 const vec2 bricks4BlockOffsets[NUM_4BRICKS_BLOCKS] = vec2[NUM_4BRICKS_BLOCKS](
@@ -377,22 +381,6 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(96.0, 320.0),  // End stone bricks
     vec2(272.0, 368.0),   // Mossy stone bricks
     vec2(64.0, 256.0)   // Books chelf
-);
-
-const vec2 demiBlocksTOffsets[DEMI_BLOCKS_TOP]=vec2[DEMI_BLOCKS_TOP](
-    vec2(448.0, 112.0), // grass_block_side
-    vec2(448.0, 144.0), // grass_block_snow
-    vec2(176.0, 352.0), // podzol_side
-    vec2(448.0, 128.0), // grass_block_side_overlay
-    vec2(384.0, 48.0), // dirt_path_side
-    vec2(512.0, 208.0), // warped_nylium_side
-    vec2(304.0, 32.0) // crimson_nylium_side
-);
-
-const vec2 demiBlocksBOffsets[DEMI_BLOCKS_BOTTOM]=vec2[DEMI_BLOCKS_BOTTOM](
-    vec2(400.0, 64.0), // end_portal_frame_side
-    vec2(400.0, 16.0), // enchanting_table_side
-    vec2(192.0, 416.0) // sculk_sensor_side
 );
 
 vec2 minUVNormal(int blockIndex) {
@@ -419,18 +407,3 @@ vec2 maxUV2Bricks(int blockIndex) {
     return (bricks2BlockOffsets[blockIndex] + vec2(16.0, 16.0)) / atlasSize;
 }
 
-vec2 minUVDemiT(int blockIndex){
-    return demiBlocksTOffsets[blockIndex]/atlasSize;
-}
-
-vec2 maxUVDemiT(int blockIndex){
-    return (demiBlocksTOffsets[blockIndex]+vec2(16.0, 16.0))/atlasSize;
-}
-
-vec2 minUVDemiB(int blockIndex){
-    return demiBlocksBOffsets[blockIndex]/atlasSize;
-}
-
-vec2 maxUVDemiB(int blockIndex){
-    return (demiBlocksBOffsets[blockIndex]+vec2(16.0, 16.0))/atlasSize;
-}
