@@ -15,6 +15,7 @@ in vec2 lmCoord;
 in vec2 signMidCoordPos;
 flat in vec2 absMidCoordPos;
 flat in vec2 midCoord;
+flat in vec4 dec;
 
 flat in vec3 upVec, sunVec, northVec, eastVec;
 in vec3 normal;
@@ -178,17 +179,20 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
 
 //Program//
 void main() {
-
-    vec3 screenPos = vec3(gl_FragCoord.xy / vec2(viewWidth, viewHeight), gl_FragCoord.z);
+    vec3 screenPos = vec3(gl_FragCoord.xy/ vec2(viewWidth, viewHeight), gl_FragCoord.z);
+    //vec3 dec_screenPos = (dec.xyz / dec.w) * 0.5 + 0.5;
     #ifdef TAA
         vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
+        //vec3 dec_viewPos = ScreenToView(vec3(TAAJitter(dec_screenPos.xy, -0.5), dec_screenPos.z));
     #else
         vec3 viewPos = ScreenToView(screenPos);
+        //vec3 dec_viewPos = ScreenToView(dec_screenPos);
     #endif
 
     float lViewPos = length(viewPos);
     vec3 nViewPos = normalize(viewPos);
     vec3 playerPos = ViewToPlayer(viewPos);
+    //vec3 dec_playerPos = ViewToPlayer(dec_viewPos);
 
     float dither = Bayer64(gl_FragCoord.xy);
     #ifdef TAA
@@ -486,6 +490,7 @@ out vec2 lmCoord;
 out vec2 signMidCoordPos;
 flat out vec2 absMidCoordPos;
 flat out vec2 midCoord;
+flat out vec4 dec;
 
 flat out vec3 upVec, sunVec, northVec, eastVec;
 out vec3 normal;
@@ -556,9 +561,9 @@ void main() {
 
     #ifdef WAVING_ANYTHING_TERRAIN
         vec4 position = gbufferModelViewInverse * gl_ModelViewMatrix * gl_Vertex;
-
+        dec = gbufferModelViewInverse * gl_ModelViewMatrix * gl_Vertex;
         DoWave(position.xyz, mat);
-
+        
         gl_Position = gl_ProjectionMatrix * gbufferModelView * position;
     #else
         gl_Position = ftransform();
