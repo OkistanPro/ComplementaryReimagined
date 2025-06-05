@@ -153,10 +153,6 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
     #include "/lib/misc/colorCodedPrograms.glsl"
 #endif
 
-#if ANISOTROPIC_FILTER > 0
-    #include "/lib/materials/materialMethods/anisotropicFiltering.glsl"
-#endif
-
 #ifdef PUDDLE_VOXELIZATION
     #include "/lib/misc/puddleVoxelization.glsl"
 #endif
@@ -167,6 +163,10 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
 
 #ifdef DISTANT_LIGHT_BOKEH
     #include "/lib/misc/distantLightBokeh.glsl"
+#endif
+
+#ifdef ANISOTROPIC_FILTER
+    #include "/lib/materials/materialMethods/anisotropicFiltering.glsl"
 #endif
 
 #define TEXSYN_ENABLE
@@ -194,6 +194,7 @@ void main() {
     #ifdef TAA
         dither = fract(dither + goldenRatio * mod(float(frameCounter), 3600.0));
     #endif
+    
 
     #ifdef TEXSYN_ENABLE
         ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
@@ -245,7 +246,7 @@ void main() {
         }
 
         if (!applyTilingAndBlending) {
-            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+            color.rgba = texture2D(tex, texCoord);
         }
 
     #else
@@ -258,7 +259,7 @@ void main() {
             vec2 maxUVValue = maxUVNormal(i);
             if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                 applyTilingAndBlending = true;
-                color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+                color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
                 break;
             }
         }
@@ -271,7 +272,7 @@ void main() {
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                    color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 0.25).rgba;
+                    color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 0.25).rgba;
                     break;
                 }
             }
@@ -285,14 +286,14 @@ void main() {
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                    color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                    color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
                     break;
                 }
             }
         }
 
         if (!applyTilingAndBlending) {
-            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+            color.rgba = textureAF(tex, texCoord);
         }
     #endif
 

@@ -134,7 +134,6 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
 }
 
 #else
-#include "anisotropicFiltering.glsl"
 
 vec4 TilingAndBlendingAF(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, float offsetAdjust, float heightAdjust)
 {
