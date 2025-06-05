@@ -250,6 +250,19 @@ void main() {
         }
 
         if (!applyTilingAndBlending) {
+            for (int i = 0; i < POLISHED_BLOCKS; i++) {
+                vec2 minUVValue = minUVPolished(i);
+                vec2 maxUVValue = maxUVPolished(i);
+
+                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
+                    applyTilingAndBlending = true;
+                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+                        break;
+                }
+            }
+        }
+
+        if (!applyTilingAndBlending) {
             color.rgba = texture2D(tex, texCoord);
         }
 
@@ -290,7 +303,7 @@ void main() {
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                    color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                    color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 2.0, 1.0).rgba;
                     break;
                 }
             }

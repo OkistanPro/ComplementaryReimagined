@@ -1,10 +1,9 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 360
+#define NUM_NORMAL_BLOCKS 351
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
-#define DEMI_BLOCKS_TOP 7
-#define DEMI_BLOCKS_BOTTOM 3
+#define POLISHED_BLOCKS 8
 
 
 // Define UV offsets for each block category
@@ -133,7 +132,6 @@ vec2(384.0, 16.0),
 vec2(384.0, 32.0),
 vec2(384.0, 112.0),
 vec2(384.0, 176.0),
-vec2(384.0, 224.0),
 vec2(384.0, 240.0),
 vec2(400.0, 112.0),
 vec2(400.0, 128.0),
@@ -248,14 +246,8 @@ vec2(416.0, 336.0),
 vec2(448.0, 336.0),
 vec2(176.0, 352.0),
 vec2(192.0, 352.0),
-vec2(368.0, 352.0),
 vec2(384.0, 352.0),
-vec2(416.0, 352.0),
 vec2(432.0, 352.0),
-vec2(448.0, 352.0),
-vec2(464.0, 352.0),
-vec2(480.0, 352.0),
-vec2(496.0, 352.0),
 vec2(176.0, 368.0),
 vec2(224.0, 368.0),
 vec2(240.0, 368.0),
@@ -307,8 +299,6 @@ vec2(432.0, 416.0),
 vec2(464.0, 416.0),
 vec2(96.0, 432.0),
 vec2(192.0, 432.0),
-vec2(208.0, 432.0),
-vec2(224.0, 432.0),
 vec2(16.0, 448.0),
 vec2(112.0, 448.0),
 vec2(128.0, 448.0),
@@ -332,7 +322,6 @@ vec2(224.0, 464.0),
 vec2(256.0, 464.0),
 vec2(288.0, 464.0),
 vec2(320.0, 464.0),
-vec2(400.0, 464.0),
 vec2(480.0, 464.0),
 vec2(496.0, 464.0),
 vec2(0.0, 480.0),
@@ -383,6 +372,17 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(64.0, 256.0)   // Books chelf
 );
 
+const vec2 polishedBlockOffsets[POLISHED_BLOCKS] = vec2[POLISHED_BLOCKS](
+    vec2(368.0, 352.0), // Polished Andesit
+    vec2(416.0, 352.0), // Polished Blackstone
+    vec2(448.0, 352.0), // Polished Deepslate
+    vec2(464.0, 352.0), // Polished Diorite
+    vec2(480.0, 352.0), // Polished Granite
+    vec2(496.0, 352.0), // Polished Tuff
+    vec2(208.0, 432.0), // Smooth Stone
+    vec2(224.0, 432.0) // Smooth Stone Slabe Side
+);
+
 vec2 minUVNormal(int blockIndex) {
     return normalBlockOffsets[blockIndex] / atlasSize;
 }
@@ -407,3 +407,10 @@ vec2 maxUV2Bricks(int blockIndex) {
     return (bricks2BlockOffsets[blockIndex] + vec2(16.0, 16.0)) / atlasSize;
 }
 
+vec2 minUVPolished(int blockIndex) {
+    return (polishedBlockOffsets[blockIndex]+ vec2(1.0, 1.0)) / atlasSize;
+}
+
+vec2 maxUVPolished(int blockIndex) {
+    return (polishedBlockOffsets[blockIndex] + vec2(15.0, 15.0)) /atlasSize;
+}
