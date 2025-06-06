@@ -1,6 +1,6 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 351
+#define NUM_NORMAL_BLOCKS 350
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
 #define POLISHED_BLOCKS 8
