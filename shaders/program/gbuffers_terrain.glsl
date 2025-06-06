@@ -15,7 +15,7 @@ in vec2 lmCoord;
 in vec2 signMidCoordPos;
 flat in vec2 absMidCoordPos;
 flat in vec2 midCoord;
-in vec4 dec;
+in vec4 wavingOffset;
 
 flat in vec3 upVec, sunVec, northVec, eastVec;
 in vec3 normal;
@@ -187,7 +187,7 @@ void main() {
 
     float lViewPos = length(viewPos);
     vec3 nViewPos = normalize(viewPos);
-    vec3 playerPos = ViewToPlayer(viewPos) + dec.xyz; //Get World Coordinate of blocks without the waves
+    vec3 playerPos = ViewToPlayer(viewPos) + wavingOffset.xyz; //Get World Coordinate of blocks without the waves
 
     float dither = Bayer64(gl_FragCoord.xy);
     #ifdef TAA
@@ -412,7 +412,7 @@ out vec2 lmCoord;
 out vec2 signMidCoordPos;
 flat out vec2 absMidCoordPos;
 flat out vec2 midCoord;
-out vec4 dec;
+out vec4 wavingOffset;
 
 flat out vec3 upVec, sunVec, northVec, eastVec;
 out vec3 normal;
@@ -483,12 +483,12 @@ void main() {
 
     #ifdef WAVING_ANYTHING_TERRAIN
         vec4 position = gbufferModelViewInverse * gl_ModelViewMatrix * gl_Vertex;
-        dec = position;
+        vec4 positionOrigin = position;
         DoWave(position.xyz, mat);
         
         gl_Position = gl_ProjectionMatrix * gbufferModelView * position;
         // Offset between the waving block and the stationary block
-        dec = (dec - position);
+        wavingOffset = positionOrigin - position;
     #else
         gl_Position = ftransform();
 
