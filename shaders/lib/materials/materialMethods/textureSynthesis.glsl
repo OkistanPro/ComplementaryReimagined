@@ -68,16 +68,15 @@ vec2 hash22u(uvec2 p)
 
 vec2 offsetToXxX(vec2 nbBlocks, in vec2 offset, in vec2 uv, float offsetAdjust, float heightAdjust)
 {
-    offset = floor(offset * offsetAdjust) / offsetAdjust; // Align to sub textures in the atlas
+    offset = floor(offset * offsetAdjust) / offsetAdjust ; // Align to sub textures in the atlas
 
     // Align the offset to the brick grid
     offset.y = floor(offset.y / heightAdjust) * heightAdjust; // Align to brick height grid
-
+	
     vec2 uvCeil = ceil(uv);
 
-
-    uv += offset ;
-    uv.x = float(uv.x < uvCeil.x) * uv.x + float(uv.x >= uvCeil.x) * (uv.x - 1.0);
+    uv += offset;
+    uv.x = float(uv.x < uvCeil.x) * uv.x + float(uv.x >= uvCeil.x) * (uv.x - 1.0); 
     uv.y = float(uv.y < uvCeil.y) * uv.y + float(uv.y >= uvCeil.y) * (uv.y - 1.0);
 
     return fract(uv);
@@ -128,8 +127,8 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
     //vec4 content1 = texture2DLod(sampler, uvContent1, 0.0) - mean;
     //vec4 content2 = texture2DLod(sampler, uvContent2, 0.0) - mean;
 
-    vec4 content1 = texture(tex, uvContent1) - mean;
-    vec4 content2 = texture(tex, uvContent2) - mean;
+    vec4 content1 = texelFetch(tex, ivec2(uvContent1 * atlasSize), 0) - mean; // usage de texelFetch pour éviter des artefacts avec floor()
+    vec4 content2 = texelFetch(tex, ivec2(uvContent2 * atlasSize), 0) - mean;
 
     vec4 value = content1 * weights.x + content2 * weights.y;
     return value / W + mean;
