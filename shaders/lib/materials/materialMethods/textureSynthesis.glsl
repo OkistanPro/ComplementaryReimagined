@@ -126,8 +126,11 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
     //vec4 content1 = texture2DLod(sampler, uvContent1, 0.0) - mean;
     //vec4 content2 = texture2DLod(sampler, uvContent2, 0.0) - mean;
 
-    vec4 content1 = texture(tex, uvContent1) - mean;
-    vec4 content2 = texture(tex, uvContent2) - mean;
+    //vec4 content1 = texture(tex, uvContent1) - mean;
+    //vec4 content2 = texture(tex, uvContent2) - mean;
+    
+    vec4 content1 = texelFetch(tex, ivec2(uvContent1 * int(atlasSize)), 0) - mean;
+    vec4 content2 = texelFetch(tex, ivec2(uvContent2 * int(atlasSize)), 0) - mean;
 
     vec4 value = content1 * weights.x + content2 * weights.y;
     return value / W + mean;
