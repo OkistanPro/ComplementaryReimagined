@@ -180,19 +180,16 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
 //Program//
 void main() {
     vec3 screenPos = vec3(gl_FragCoord.xy/ vec2(viewWidth, viewHeight), gl_FragCoord.z);
-    //vec3 dec_screenPos = (dec.xyz / dec.w) * 0.5 + 0.5;
     #ifdef TAA
         vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
-        //vec3 dec_viewPos = ScreenToView(vec3(TAAJitter(dec_screenPos.xy, -0.5), dec_screenPos.z));
     #else
         vec3 viewPos = ScreenToView(screenPos);
-        //vec3 dec_viewPos = ScreenToView(dec_screenPos);
     #endif
 
     float lViewPos = length(viewPos);
     vec3 nViewPos = normalize(viewPos);
-    vec3 playerPos = ViewToPlayer(viewPos) + wavingOffset.xyz; //Remove waving blocks for blockPosFrag calculation
-    //vec3 dec_playerPos = ViewToPlayer(dec_viewPos);
+    vec3 playerPos = ViewToPlayer(viewPos); 
+    vec3 playerPosWithoutWaves = playerPos + wavingOffset.xyz; //Remove waving blocks for blockPosFrag calculation
 
     float dither = Bayer64(gl_FragCoord.xy);
     #ifdef TAA
@@ -201,7 +198,7 @@ void main() {
     
 
     #ifdef TEXSYN_ENABLE
-        ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
+        ivec3 blockPosFrag = ivec3(floor(playerPosWithoutWaves + cameraPosition + 0.001));
         bool applyTilingAndBlending = false;
     #endif
 
