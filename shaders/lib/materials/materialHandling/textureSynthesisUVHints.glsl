@@ -1,9 +1,10 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 350
+#define NUM_NORMAL_BLOCKS 337
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
 #define POLISHED_BLOCKS 8
+#define NUM_MINERALS_BLOCKS 17
 
 
 // Define UV offsets for each block category
@@ -69,12 +70,10 @@ vec2(224.0, 224.0),
 vec2(240.0, 224.0),
 vec2(0.0, 240.0),
 vec2(32.0, 240.0),
-vec2(48.0, 240.0),
 vec2(64.0, 240.0),
 vec2(80.0, 240.0),
 vec2(96.0, 240.0),
 vec2(256.0, 112.0),
-vec2(256.0, 240.0),
 vec2(272.0, 32.0),
 vec2(272.0, 48.0),
 vec2(272.0, 64.0),
@@ -106,14 +105,6 @@ vec2(352.0, 0.0),
 vec2(352.0, 48.0),
 vec2(352.0, 112.0),
 vec2(352.0, 128.0),
-vec2(352.0, 144.0),
-vec2(352.0, 160.0),
-vec2(352.0, 176.0),
-vec2(352.0, 192.0),
-vec2(352.0, 208.0),
-vec2(352.0, 224.0),
-vec2(352.0, 240.0),
-vec2(368.0, 0.0),
 vec2(368.0, 16.0),
 vec2(368.0, 32.0),
 vec2(368.0, 48.0),
@@ -127,12 +118,10 @@ vec2(368.0, 160.0),
 vec2(368.0, 176.0),
 vec2(368.0, 192.0),
 vec2(368.0, 240.0),
-vec2(384.0, 0.0),
 vec2(384.0, 16.0),
 vec2(384.0, 32.0),
 vec2(384.0, 112.0),
 vec2(384.0, 176.0),
-vec2(384.0, 240.0),
 vec2(400.0, 112.0),
 vec2(400.0, 128.0),
 vec2(400.0, 160.0),
@@ -148,7 +137,6 @@ vec2(432.0, 224.0),
 vec2(448.0, 32.0),
 vec2(448.0, 48.0),
 vec2(448.0, 64.0),
-vec2(448.0, 80.0),
 vec2(448.0, 96.0),
 vec2(448.0, 160.0),
 vec2(448.0, 176.0),
@@ -171,12 +159,10 @@ vec2(480.0, 192.0),
 vec2(480.0, 240.0),
 vec2(496.0, 16.0),
 vec2(496.0, 48.0),
-vec2(496.0, 96.0),
 vec2(32.0, 256.0),
 vec2(48.0, 256.0),
 vec2(80.0, 256.0),
 vec2(192.0, 256.0),
-vec2(208.0, 256.0),
 vec2(64.0, 32.0),
 vec2(272.0, 256.0),
 vec2(416.0, 256.0),
@@ -214,8 +200,6 @@ vec2(64.0, 304.0),
 vec2(80.0, 304.0),
 vec2(96.0, 304.0),
 vec2(112.0, 304.0),
-vec2(128.0, 304.0),
-vec2(160.0, 304.0),
 vec2(192.0, 304.0),
 vec2(256.0, 304.0),
 vec2(272.0, 304.0),
@@ -279,7 +263,6 @@ vec2(352.0, 384.0),
 vec2(416.0, 384.0),
 vec2(448.0, 384.0),
 vec2(464.0, 384.0),
-vec2(64.0, 400.0),
 vec2(256.0, 400.0),
 vec2(272.0, 400.0),
 vec2(304.0, 400.0),
@@ -357,6 +340,11 @@ vec2(528.0, 464.0),
 vec2(528.0, 480.0),
 vec2(544.0, 48.0),
 vec2(544.0, 64.0),
+vec2(160.0, 304.0),
+vec2(128.0, 304.0),
+vec2(416.0, 64.0),
+vec2(416.0, 80.0),
+vec2(368.0, 304.0),
 vec2(448.0, 112.0)
 );
 
@@ -381,6 +369,26 @@ const vec2 polishedBlockOffsets[POLISHED_BLOCKS] = vec2[POLISHED_BLOCKS](
     vec2(496.0, 352.0), // Polished Tuff
     vec2(208.0, 432.0), // Smooth Stone
     vec2(224.0, 432.0) // Smooth Stone Slabe Side
+);
+
+const vec2 mineralsBlockOffsets[NUM_MINERALS_BLOCKS] = vec2[NUM_MINERALS_BLOCKS](
+    vec2(48.0, 240.0),
+    vec2(256.0, 240.0),
+    vec2(352.0, 144.0),
+    vec2(352.0, 160.0),
+    vec2(352.0, 176.0),
+    vec2(352.0, 192.0),
+    vec2(352.0, 208.0),
+    vec2(352.0, 224.0),
+    vec2(352.0, 240.0),
+    vec2(368.0, 0.0),
+    vec2(384.0, 0.0),
+    vec2(384.0, 240.0),
+    vec2(448.0, 80.0),
+    vec2(496.0, 96.0),
+    vec2(208.0, 256.0),
+    vec2(128.0, 304.0),
+    vec2(64.0, 400.0)
 );
 
 vec2 minUVNormal(int blockIndex) {
@@ -413,4 +421,12 @@ vec2 minUVPolished(int blockIndex) {
 
 vec2 maxUVPolished(int blockIndex) {
     return (polishedBlockOffsets[blockIndex] + vec2(15.0, 15.0)) /atlasSize;
+}
+
+vec2 minUVMinerals(int blockIndex) {
+    return (mineralsBlockOffsets[blockIndex]+ vec2(1.0, 1.0)) / atlasSize;
+}
+
+vec2 maxUVMinerals(int blockIndex) {
+    return (mineralsBlockOffsets[blockIndex] + vec2(15.0, 15.0)) /atlasSize;
 }

@@ -246,6 +246,21 @@ void main() {
             }
         }
 
+        // Loop through minerals blocks
+        if (!applyTilingAndBlending) {
+            for (int i = 0; i < NUM_MINERALS_BLOCKS; i++) {
+                vec2 minUVValue = minUVMinerals(i);
+                vec2 maxUVValue = maxUVMinerals(i);
+
+                if (texCoord.x > minUVValue.x && texCoord.x < maxUVValue.x && texCoord.y > minUVValue.y && texCoord.y < maxUVValue.y) {
+                    applyTilingAndBlending = true;
+                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                        break;
+                }
+            }
+        }
+
+        // Loop through polished blocks
         if (!applyTilingAndBlending) {
             for (int i = 0; i < POLISHED_BLOCKS; i++) {
                 vec2 minUVValue = minUVPolished(i);
