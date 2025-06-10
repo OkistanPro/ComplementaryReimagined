@@ -187,7 +187,8 @@ void main() {
 
     float lViewPos = length(viewPos);
     vec3 nViewPos = normalize(viewPos);
-    vec3 playerPos = ViewToPlayer(viewPos) + wavingOffset.xyz; //Get World Coordinate of blocks without the waves
+    vec3 playerPos = ViewToPlayer(viewPos);
+    vec3 playerPosWithoutWaves = playerPos + wavingOffset.xyz; //Get World Coordinate of blocks without the waves
 
     float dither = Bayer64(gl_FragCoord.xy);
     #ifdef TAA
@@ -196,7 +197,7 @@ void main() {
     
 
     #ifdef TEXSYN_ENABLE
-        ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
+        ivec3 blockPosFrag = ivec3(floor(playerPosWithoutWaves + cameraPosition + 0.001));
     #endif
 
     #ifdef TEXSYN_ENABLE
