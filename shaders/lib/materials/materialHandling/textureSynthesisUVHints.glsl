@@ -1,11 +1,11 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 332
+#define NUM_NORMAL_BLOCKS 324
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
 #define BLR_BLOCKS 7
-#define BORDER_LESS_BLOCKS 17
-#define ROTATE_BLOCKS 72
+#define BORDER_LESS_BLOCKS 26
+#define ROTATE_BLOCKS 93
 
 
 // Define UV offsets for each block category
@@ -206,8 +206,6 @@ vec2(336.0, 304.0),
 vec2(352.0, 304.0),
 vec2(384.0, 304.0),
 vec2(0.0, 320.0),
-vec2(16.0, 320.0),
-vec2(32.0, 320.0),
 vec2(112.0, 320.0),
 vec2(128.0, 320.0),
 vec2(208.0, 320.0),
@@ -221,8 +219,6 @@ vec2(16.0, 336.0),
 vec2(96.0, 336.0),
 vec2(112.0, 336.0),
 vec2(144.0, 336.0),
-vec2(192.0, 336.0),
-vec2(208.0, 336.0),
 vec2(288.0, 336.0),
 vec2(304.0, 336.0),
 vec2(416.0, 336.0),
@@ -274,8 +270,6 @@ vec2(160.0, 416.0),
 vec2(176.0, 416.0),
 vec2(240.0, 416.0),
 vec2(256.0, 416.0),
-vec2(352.0, 416.0),
-vec2(432.0, 416.0),
 vec2(464.0, 416.0),
 vec2(96.0, 432.0),
 vec2(192.0, 432.0),
@@ -314,8 +308,6 @@ vec2(272.0, 480.0),
 vec2(208.0, 496.0),
 vec2(240.0, 496.0),
 vec2(256.0, 496.0),
-vec2(512.0, 96.0),
-vec2(512.0, 112.0),
 vec2(512.0, 128.0),
 vec2(512.0, 192.0),
 vec2(512.0, 208.0),
@@ -383,7 +375,16 @@ const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS]
     vec2(496.0, 96.0),
     vec2(208.0, 256.0),
     vec2(128.0, 304.0),
-    vec2(64.0, 400.0)
+    vec2(64.0, 400.0),
+    vec2(176.0, 96.0), // beehive_end
+    vec2(512.0, 96.0), // verdant_froglight_side
+    vec2(512.0, 112.0), // verdant_froglight_top
+    vec2(192.0, 336.0), // pearlescent_froglight_side
+    vec2(208.0, 336.0), // pearlescent_froglight_top
+    vec2(16.0, 320.0), // ochre_froglight_side
+    vec2(32.0, 320.0), // ochre_froglight_top
+    vec2(432.0, 416.0), // shroomlight
+    vec2(464.0, 336.0) // piston_bottom
 );
 
 const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
@@ -458,7 +459,28 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(512.0, 496.0), // weathered_copper_grate
     vec2(288.0, 368.0), // pumpkin_top
     vec2(432.0, 288.0), // melon_top
-    vec2(432.0, 208.0) // furnace_top
+    vec2(432.0, 208.0), // furnace_top
+    vec2(64.0, 128.0), // blast_furnace_top
+    vec2(176.0, 432.0), // smoker_top
+    vec2(288.0, 112.0), // crafting_table_top
+    vec2(32.0, 400.0), // redstone_lamp
+    vec2(48.0, 400.0), // redstone_lamp_on
+    vec2(288.0, 304.0), // note_block
+    vec2(496.0, 224.0), // jukebox_side
+    vec2(224.0, 208.0), // chiseled_bookshelf_top
+    vec2(160.0, 48.0), // barrel_top
+    vec2(160.0, 64.0), // barrel_top_open
+    vec2(352.0, 416.0), // sea_lantern
+    vec2(496.0, 480.0), // trial_spawner_bottom
+    vec2(64.0, 496.0), // trial_spawner_top_active
+    vec2(80.0, 496.0), // trial_spawner_top_active_ominous
+    vec2(96.0, 496.0), // trial_spawner_top_ejecting_reward
+    vec2(112.0, 496.0), // trial_spawner_top_ejecting_reward_ominous
+    vec2(128.0, 496.0), // trial_spawner_top_inactive
+    vec2(144.0, 496.0), // trial_spawner_top_inactive_ominous
+    vec2(480.0, 336.0), // piston_inner
+    vec2(240.0, 480.0), // target_side
+    vec2(256.0, 480.0) // target_top
 );
 
 vec2 minUVNormal(int blockIndex) {
