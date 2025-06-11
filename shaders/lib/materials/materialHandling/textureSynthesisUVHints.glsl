@@ -1,11 +1,11 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 336
+#define NUM_NORMAL_BLOCKS 332
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
 #define BLR_BLOCKS 7
 #define BORDER_LESS_BLOCKS 17
-#define ROTATE_BLOCKS 1
+#define ROTATE_BLOCKS 72
 
 
 // Define UV offsets for each block category
@@ -74,7 +74,6 @@ vec2(32.0, 240.0),
 vec2(64.0, 240.0),
 vec2(80.0, 240.0),
 vec2(96.0, 240.0),
-vec2(256.0, 112.0),
 vec2(272.0, 32.0),
 vec2(272.0, 48.0),
 vec2(272.0, 64.0),
@@ -88,7 +87,6 @@ vec2(304.0, 32.0),
 vec2(304.0, 48.0),
 vec2(304.0, 96.0),
 vec2(304.0, 144.0),
-vec2(304.0, 160.0),
 vec2(304.0, 176.0),
 vec2(304.0, 192.0),
 vec2(304.0, 240.0),
@@ -237,14 +235,12 @@ vec2(176.0, 368.0),
 vec2(224.0, 368.0),
 vec2(240.0, 368.0),
 vec2(256.0, 368.0),
-vec2(288.0, 368.0),
 vec2(320.0, 368.0),
 vec2(336.0, 368.0),
 vec2(352.0, 368.0),
 vec2(432.0, 368.0),
 vec2(448.0, 368.0),
 vec2(464.0, 368.0),
-vec2(480.0, 368.0),
 vec2(0.0, 384.0),
 vec2(16.0, 384.0),
 vec2(32.0, 384.0),
@@ -367,7 +363,7 @@ const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
     vec2(464.0, 352.0), // Polished Diorite
     vec2(480.0, 352.0), // Polished Granite
     vec2(496.0, 352.0), // Polished Tuff
-    vec2(208.0, 432.0), // Smooth Stone
+    vec2(208.0, 432.0) // Smooth Stone
 );
 
 const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS](
@@ -387,7 +383,7 @@ const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS]
     vec2(496.0, 96.0),
     vec2(208.0, 256.0),
     vec2(128.0, 304.0),
-    vec2(64.0, 400.0),
+    vec2(64.0, 400.0)
 );
 
 const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
@@ -412,7 +408,57 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(304.0, 112.0), // crimson_stem_top
     vec2(80.0, 464.0), // stripped_crimson_stem_top
     vec2(304.0, 464.0), // stripped_warped_stem_top
-    vec2(512.0, 288.0) // warped_stem_top
+    vec2(512.0, 288.0), // warped_stem_top
+    vec2(496.0, 368.0), // purpur_pillar_top
+    vec2(80.0, 384.0), // quartz_pillar_top
+    vec2(32.0, 144.0), // bone_block_top
+    vec2(96.0, 96.0), // ancient_debris_top
+    vec2(176.0, 16.0), // bee_nest_bottom
+    vec2(176.0, 80.0), // bee_nest_top
+    vec2(288.0, 176.0), // creaking_heart_top
+    vec2(288.0, 192.0), // creaking_heart_top_awake
+    vec2(288.0, 208.0), // creaking_heart_top_dormant
+    vec2(464.0, 272.0), // lodestone_top
+    vec2(144.0, 32.0), // bamboo_mosaic
+    vec2(176.0, 160.0), // cactus_bottom
+    vec2(224.0, 160.0), // cactus_top
+    vec2(304.0, 176.0), // cut_red_sandstone
+    vec2(304.0, 192.0), // cut_sandstone
+    vec2(400.0, 352.0), // polished_basalt_top
+    vec2(80.0, 384.0), // quartz_pillar_top
+    vec2(176.0, 224.0), // chiseled_tuff_bricks_top -> a voir
+    vec2(112.0, 400.0), // reinforced_deepslate_bottom
+    vec2(144.0, 400.0), // reinforced_deepslate_top
+    vec2(256.0, 112.0), // copper_block
+    vec2(256.0, 128.0), // copper_bulb
+    vec2(256.0, 144.0), // copper_bulb_lit
+    vec2(256.0, 160.0), // copper_bulb_lit_powered
+    vec2(256.0, 176.0), // copper_bulb_powered
+    vec2(256.0, 224.0), // copper_grate
+    vec2(400.0, 144.0), // exposed_chiseled_copper
+    vec2(400.0, 160.0), // exposed_copper
+    vec2(400.0, 176.0), // exposed_copper_bulb
+    vec2(400.0, 192.0), // exposed_copper_bulb_lit
+    vec2(400.0, 208.0), // exposed_copper_bulb_lit_powered
+    vec2(400.0, 224.0), // exposed_copper_bulb_powered
+    vec2(416.0, 16.0), // exposed_copper_grate
+    vec2(272.0, 320.0), // oxidized_chiseled_copper
+    vec2(288.0, 320.0), // oxidized_copper
+    vec2(304.0, 320.0), // oxidized_copper_bulb
+    vec2(320.0, 320.0), // oxidized_copper_bulb_lit
+    vec2(336.0, 320.0), // oxidized_copper_bulb_lit_powered
+    vec2(352.0, 320.0), // oxidized_copper_bulb_powered
+    vec2(400.0, 320.0), // oxidized_copper_grate
+    vec2(512.0, 368.0), // weathered_chiseled_copper
+    vec2(512.0, 384.0), // weathered_copper
+    vec2(512.0, 400.0), // weathered_copper_bulb
+    vec2(512.0, 416.0), // weathered_copper_bulb_lit
+    vec2(512.0, 432.0), // weathered_copper_bulb_lit_powered
+    vec2(512.0, 448.0), // weathered_copper_bulb_powered
+    vec2(512.0, 496.0), // weathered_copper_grate
+    vec2(288.0, 368.0), // pumpkin_top
+    vec2(432.0, 288.0), // melon_top
+    vec2(432.0, 208.0) // furnace_top
 );
 
 vec2 minUVNormal(int blockIndex) {

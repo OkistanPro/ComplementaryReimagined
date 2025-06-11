@@ -218,6 +218,11 @@ void main() {
             }
         }
 
+        if(!applyTilingAndBlending && texCoord.x >= minUVdirtpath().x && texCoord.x <= maxUVdirtpath().x && texCoord.y >= minUVdirtpath().y && texCoord.y <= maxUVdirtpath().y) {
+            applyTilingAndBlending = true;
+            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+        }
+
         // Loop through 4 bricks blocks
         if (!applyTilingAndBlending) {
             for (int i = 0; i < NUM_4BRICKS_BLOCKS; i++) {
