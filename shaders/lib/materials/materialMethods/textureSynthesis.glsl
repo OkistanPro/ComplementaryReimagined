@@ -188,8 +188,8 @@ vec4 TilingAndBlendingRotate(in sampler2D sampler, in vec2 uv, in ivec3 blockPos
     vec2 offset1 = vec2(0.0, 0.0); 
     vec2 offset2 = vec2(0.0, 0.0);
 
-    vec2 uvContent1 = offsetToXxX(nbBlocks, offset1, blockUVFract, offsetAdjust, heightAdjust, hash22u(uvec2(tile1)));
-    vec2 uvContent2 = offsetToXxX(nbBlocks, offset2, blockUVFract, offsetAdjust, heightAdjust, hash22u(uvec2(tile2)));
+    vec2 uvContent1 = offsetToXxXRotate(nbBlocks, offset1, blockUVFract, offsetAdjust, heightAdjust, hash22u(uvec2(tile1)));
+    vec2 uvContent2 = offsetToXxXRotate(nbBlocks, offset2, blockUVFract, offsetAdjust, heightAdjust, hash22u(uvec2(tile2)));
 
     uvContent1 = (uvContent1 + blockUVFloor) / nbBlocks;
     uvContent2 = (uvContent2 + blockUVFloor) / nbBlocks;

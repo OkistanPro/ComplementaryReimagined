@@ -246,29 +246,43 @@ void main() {
             }
         }
 
-        // Loop through minerals blocks
+        // Loop through border less blocks
         if (!applyTilingAndBlending) {
-            for (int i = 0; i < NUM_MINERALS_BLOCKS; i++) {
-                vec2 minUVValue = minUVMinerals(i);
-                vec2 maxUVValue = maxUVMinerals(i);
+            for (int i = 0; i < BORDER_LESS_BLOCKS; i++) {
+                vec2 minUVValue = minUVBorderLess(i);
+                vec2 maxUVValue = maxUVBorderLess(i);
 
                 if (texCoord.x > minUVValue.x && texCoord.x < maxUVValue.x && texCoord.y > minUVValue.y && texCoord.y < maxUVValue.y) {
                     applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 0.5).rgba;
+                        color.rgba = TilingAndBlendingRotate(tex, texCoord, blockPosFrag, 16.0, 0.5).rgba;
                         break;
                 }
             }
         }
 
-        // Loop through polished blocks
+        // Loop through border less rotate blocks
         if (!applyTilingAndBlending) {
-            for (int i = 0; i < POLISHED_BLOCKS; i++) {
-                vec2 minUVValue = minUVPolished(i);
-                vec2 maxUVValue = maxUVPolished(i);
+            for (int i = 0; i < BLR_BLOCKS; i++) {
+                vec2 minUVValue = minUVBLR(i);
+                vec2 maxUVValue = maxUVBLR(i);
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+                        color.rgba = TilingAndBlendingRotate(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+                        break;
+                }
+            }
+        }
+
+        // Loop through rotate blocks
+        if (!applyTilingAndBlending) {
+            for (int i = 0; i < ROTATE_BLOCKS; i++) {
+                vec2 minUVValue = minUVRotate(i);
+                vec2 maxUVValue = maxUVRotate(i);
+
+                if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
+                    applyTilingAndBlending = true;
+                        color.rgba = TilingAndBlendingRotate(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
                         break;
                 }
             }

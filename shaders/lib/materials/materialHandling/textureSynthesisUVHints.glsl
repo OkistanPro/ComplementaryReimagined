@@ -1,10 +1,11 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 337
+#define NUM_NORMAL_BLOCKS 336
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
-#define POLISHED_BLOCKS 8
-#define NUM_MINERALS_BLOCKS 17
+#define BLR_BLOCKS 7
+#define BORDER_LESS_BLOCKS 17
+#define ROTATE_BLOCKS 1
 
 
 // Define UV offsets for each block category
@@ -344,7 +345,6 @@ vec2(160.0, 304.0),
 vec2(128.0, 304.0),
 vec2(416.0, 64.0),
 vec2(416.0, 80.0),
-vec2(368.0, 304.0),
 vec2(448.0, 112.0)
 );
 
@@ -360,7 +360,7 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(64.0, 256.0)   // Books chelf
 );
 
-const vec2 polishedBlockOffsets[POLISHED_BLOCKS] = vec2[POLISHED_BLOCKS](
+const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
     vec2(368.0, 352.0), // Polished Andesit
     vec2(416.0, 352.0), // Polished Blackstone
     vec2(448.0, 352.0), // Polished Deepslate
@@ -368,10 +368,9 @@ const vec2 polishedBlockOffsets[POLISHED_BLOCKS] = vec2[POLISHED_BLOCKS](
     vec2(480.0, 352.0), // Polished Granite
     vec2(496.0, 352.0), // Polished Tuff
     vec2(208.0, 432.0), // Smooth Stone
-    vec2(224.0, 432.0) // Smooth Stone Slabe Side
 );
 
-const vec2 mineralsBlockOffsets[NUM_MINERALS_BLOCKS] = vec2[NUM_MINERALS_BLOCKS](
+const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS](
     vec2(48.0, 240.0),
     vec2(256.0, 240.0),
     vec2(352.0, 144.0),
@@ -388,7 +387,32 @@ const vec2 mineralsBlockOffsets[NUM_MINERALS_BLOCKS] = vec2[NUM_MINERALS_BLOCKS]
     vec2(496.0, 96.0),
     vec2(208.0, 256.0),
     vec2(128.0, 304.0),
-    vec2(64.0, 400.0)
+    vec2(64.0, 400.0),
+);
+
+const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
+    vec2(64.0, 80.0), // acacia_log_top
+    vec2(224.0, 16.0), // birch_log_top
+    vec2(96.0, 208.0), // cherry_log_top
+    vec2(320.0, 208.0), // dark_oak_log_top
+    vec2(64.0, 256.0), // jungle_log_top
+    vec2(272.0, 288.0), // mangrove_log_top
+    vec2(368.0, 304.0), // oak_log_top
+    vec2(128.0, 336.0), // pale_oak_log_top
+    vec2(288.0, 448.0), // spruce_log_top
+    vec2(464.0, 448.0), // stripped_acacia_log_top
+    vec2(16.0, 464.0), // stripped_birch_log_top
+    vec2(48.0, 464.0), // stripped_cherry_log_top
+    vec2(112.0, 464.0), // stripped_dark_oak_log_top
+    vec2(144.0, 464.0), // stripped_jungle_log_top
+    vec2(176.0, 464.0), // stripped_mangrove_log_top
+    vec2(208.0, 464.0), // stripped_oak_log_top
+    vec2(240.0, 464.0), // stripped_pale_oak_log_top
+    vec2(272.0, 464.0), // stripped_spruce_log_top
+    vec2(304.0, 112.0), // crimson_stem_top
+    vec2(80.0, 464.0), // stripped_crimson_stem_top
+    vec2(304.0, 464.0), // stripped_warped_stem_top
+    vec2(512.0, 288.0) // warped_stem_top
 );
 
 vec2 minUVNormal(int blockIndex) {
@@ -415,18 +439,34 @@ vec2 maxUV2Bricks(int blockIndex) {
     return (bricks2BlockOffsets[blockIndex] + vec2(16.0, 16.0)) / atlasSize;
 }
 
-vec2 minUVPolished(int blockIndex) {
-    return (polishedBlockOffsets[blockIndex]+ vec2(1.0, 1.0)) / atlasSize;
+vec2 minUVBLR(int blockIndex) {
+    return (borderLessRotateBlockOffsets[blockIndex]+ vec2(1.0, 1.0)) / atlasSize;
 }
 
-vec2 maxUVPolished(int blockIndex) {
-    return (polishedBlockOffsets[blockIndex] + vec2(15.0, 15.0)) /atlasSize;
+vec2 maxUVBLR(int blockIndex) {
+    return (borderLessRotateBlockOffsets[blockIndex] + vec2(15.0, 15.0)) /atlasSize;
 }
 
-vec2 minUVMinerals(int blockIndex) {
-    return (mineralsBlockOffsets[blockIndex]+ vec2(1.0, 1.0)) / atlasSize;
+vec2 minUVBorderLess(int blockIndex) {
+    return (borderLessBlockOffsets[blockIndex]+ vec2(1.0, 1.0)) / atlasSize;
 }
 
-vec2 maxUVMinerals(int blockIndex) {
-    return (mineralsBlockOffsets[blockIndex] + vec2(15.0, 15.0)) /atlasSize;
+vec2 maxUVBorderLess(int blockIndex) {
+    return (borderLessBlockOffsets[blockIndex] + vec2(15.0, 15.0)) / atlasSize;
+}
+
+vec2 minUVRotate(int blockIndex){
+    return (rotateBlockOffsets[blockIndex]) / atlasSize;
+}
+
+vec2 maxUVRotate(int blockIndex){
+    return (rotateBlockOffsets[blockIndex] + vec2(16.0, 16.0)) / atlasSize; 
+}
+
+vec2 minUVdirtpath() {
+    return vec2(384.0, 49.0) / atlasSize;
+}
+
+vec2 maxUVdirtpath() {
+    return (vec2(384.0, 49.0) + vec2(16.0, 16.0)) / atlasSize;
 }
