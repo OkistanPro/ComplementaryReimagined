@@ -259,7 +259,7 @@ void main() {
 
                 if (texCoord.x > minUVValue.x && texCoord.x < maxUVValue.x && texCoord.y > minUVValue.y && texCoord.y < maxUVValue.y) {
                     applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlendingRotate(tex, texCoord, blockPosFrag, 16.0, 0.5).rgba;
+                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 0.5).rgba;
                         break;
                 }
             }

@@ -3,9 +3,9 @@
 #define NUM_NORMAL_BLOCKS 285
 #define NUM_4BRICKS_BLOCKS 5
 #define NUM_2BRICKS_BLOCKS 13
-#define BLR_BLOCKS 12
-#define BORDER_LESS_BLOCKS 27
-#define ROTATE_BLOCKS 110
+#define BLR_BLOCKS 43
+#define BORDER_LESS_BLOCKS 31
+#define ROTATE_BLOCKS 87
 
 
 // Define UV offsets for each block category
@@ -21,7 +21,6 @@ vec2(80.0, 96.0),
 vec2(112.0, 96.0),
 vec2(64.0, 112.0),
 vec2(128.0, 16.0),
-vec2(128.0, 32.0),
 vec2(128.0, 80.0),
 vec2(128.0, 96.0),
 vec2(128.0, 112.0),
@@ -250,7 +249,6 @@ vec2(304.0, 448.0),
 vec2(352.0, 448.0),
 vec2(448.0, 448.0),
 vec2(480.0, 448.0),
-vec2(496.0, 448.0),
 vec2(0.0, 464.0),
 vec2(32.0, 464.0),
 vec2(64.0, 464.0),
@@ -294,7 +292,9 @@ vec2(160.0, 304.0),
 vec2(128.0, 304.0),
 vec2(416.0, 64.0),
 vec2(416.0, 80.0),
-vec2(448.0, 112.0)
+vec2(448.0, 112.0),
+vec2(304.0, 176.0), // cut_red_sandstone
+    vec2(304.0, 192.0) // cut_sandstone
 );
 
 const vec2 bricks4BlockOffsets[NUM_4BRICKS_BLOCKS] = vec2[NUM_4BRICKS_BLOCKS](
@@ -333,7 +333,38 @@ const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
     vec2(464.0, 384.0), // redstone_block
     vec2(256.0, 304.0), // netherite_block
     vec2(368.0, 240.0), // diamond_block
-    vec2(192.0, 256.0) // lapis_block
+    vec2(192.0, 256.0), // lapis_block
+    vec2(256.0, 112.0), // copper_block
+    vec2(256.0, 128.0), // copper_bulb
+    vec2(256.0, 144.0), // copper_bulb_lit
+    vec2(256.0, 160.0), // copper_bulb_lit_powered
+    vec2(256.0, 176.0), // copper_bulb_powered
+    vec2(256.0, 224.0), // copper_grate
+    vec2(400.0, 144.0), // exposed_chiseled_copper
+    vec2(400.0, 160.0), // exposed_copper
+    vec2(400.0, 176.0), // exposed_copper_bulb
+    vec2(400.0, 192.0), // exposed_copper_bulb_lit
+    vec2(400.0, 208.0), // exposed_copper_bulb_lit_powered
+    vec2(400.0, 224.0), // exposed_copper_bulb_powered
+    vec2(416.0, 16.0), // exposed_copper_grate
+    vec2(272.0, 320.0), // oxidized_chiseled_copper
+    vec2(288.0, 320.0), // oxidized_copper
+    vec2(304.0, 320.0), // oxidized_copper_bulb
+    vec2(320.0, 320.0), // oxidized_copper_bulb_lit
+    vec2(336.0, 320.0), // oxidized_copper_bulb_lit_powered
+    vec2(352.0, 320.0), // oxidized_copper_bulb_powered
+    vec2(400.0, 320.0), // oxidized_copper_grate
+    vec2(512.0, 368.0), // weathered_chiseled_copper
+    vec2(512.0, 384.0), // weathered_copper
+    vec2(512.0, 400.0), // weathered_copper_bulb
+    vec2(512.0, 416.0), // weathered_copper_bulb_lit
+    vec2(512.0, 432.0), // weathered_copper_bulb_lit_powered
+    vec2(512.0, 448.0), // weathered_copper_bulb_powered
+    vec2(512.0, 496.0), // weathered_copper_grate
+    vec2(416.0, 320.0), // oxidized_copper_trapdoor
+    vec2(528.0, 0.0), // weathered_copper_trapdoor
+    vec2(272.0, 0.0), // copper_trapdoor
+    vec2(416.0, 32.0) // exposed_copper_trapdoor
 );
 
 const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS](
@@ -363,7 +394,11 @@ const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS]
     vec2(32.0, 320.0), // ochre_froglight_top
     vec2(432.0, 416.0), // shroomlight
     vec2(464.0, 336.0), // piston_bottom
-    vec2(496.0, 48.0) // iron_block
+    vec2(496.0, 48.0), // iron_block
+    vec2(48.0, 144.0), // bookshelf
+    vec2(176.0, 208.0), // chiseled_bookshelf_empty
+    vec2(192.0, 208.0), // chiseled_bookshelf_occupied
+    vec2(112.0, 432.0) // smoker_bottom
 );
 
 const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
@@ -402,40 +437,11 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(144.0, 32.0), // bamboo_mosaic
     vec2(176.0, 160.0), // cactus_bottom
     vec2(224.0, 160.0), // cactus_top
-    vec2(304.0, 176.0), // cut_red_sandstone
-    vec2(304.0, 192.0), // cut_sandstone
     vec2(400.0, 352.0), // polished_basalt_top
     vec2(80.0, 384.0), // quartz_pillar_top
     vec2(176.0, 224.0), // chiseled_tuff_bricks_top
     vec2(112.0, 400.0), // reinforced_deepslate_bottom
     vec2(144.0, 400.0), // reinforced_deepslate_top
-    vec2(256.0, 112.0), // copper_block
-    vec2(256.0, 128.0), // copper_bulb
-    vec2(256.0, 144.0), // copper_bulb_lit
-    vec2(256.0, 160.0), // copper_bulb_lit_powered
-    vec2(256.0, 176.0), // copper_bulb_powered
-    vec2(256.0, 224.0), // copper_grate
-    vec2(400.0, 144.0), // exposed_chiseled_copper
-    vec2(400.0, 160.0), // exposed_copper
-    vec2(400.0, 176.0), // exposed_copper_bulb
-    vec2(400.0, 192.0), // exposed_copper_bulb_lit
-    vec2(400.0, 208.0), // exposed_copper_bulb_lit_powered
-    vec2(400.0, 224.0), // exposed_copper_bulb_powered
-    vec2(416.0, 16.0), // exposed_copper_grate
-    vec2(272.0, 320.0), // oxidized_chiseled_copper
-    vec2(288.0, 320.0), // oxidized_copper
-    vec2(304.0, 320.0), // oxidized_copper_bulb
-    vec2(320.0, 320.0), // oxidized_copper_bulb_lit
-    vec2(336.0, 320.0), // oxidized_copper_bulb_lit_powered
-    vec2(352.0, 320.0), // oxidized_copper_bulb_powered
-    vec2(400.0, 320.0), // oxidized_copper_grate
-    vec2(512.0, 368.0), // weathered_chiseled_copper
-    vec2(512.0, 384.0), // weathered_copper
-    vec2(512.0, 400.0), // weathered_copper_bulb
-    vec2(512.0, 416.0), // weathered_copper_bulb_lit
-    vec2(512.0, 432.0), // weathered_copper_bulb_lit_powered
-    vec2(512.0, 448.0), // weathered_copper_bulb_powered
-    vec2(512.0, 496.0), // weathered_copper_grate
     vec2(288.0, 368.0), // pumpkin_top
     vec2(432.0, 288.0), // melon_top
     vec2(432.0, 208.0), // furnace_top
@@ -463,20 +469,26 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(384.0, 224.0), // emerald_block
     vec2(160.0, 0.0), // bamboo_trapdoor
     vec2(144.0, 208.0), // cherry_trapdoor
-    vec2(272.0, 0.0), // copper_trapdoor
-    vec2(416.0, 32.0), // exposed_copper_trapdoor
     vec2(496.0, 112.0), // iron_trapdoor
     vec2(368.0, 288.0), // mangrove_trapdoor
     vec2(416.0, 304.0), // oak_trapdoor
-    vec2(416.0, 320.0), // oxidized_copper_trapdoor
-    vec2(528.0, 0.0), // weathered_copper_trapdoor
     vec2(256.0, 32.0), // composter_compost
     vec2(256.0, 48.0), // composter_ready
     vec2(256.0, 80.0), // composter_top
     vec2(336.0, 32.0), // daylight_detector_inverted_top
     vec2(336.0, 64.0), // daylight_detector_top
     vec2(336.0, 48.0), // daylight_detector_side
-    vec2(480.0, 20.8) // hopper_top
+    vec2(480.0, 20.8), // hopper_top
+    vec2(496.0, 448.0), // stripped_bamboo_block_top
+    vec2(128.0, 32.0), // bamboo_block_top
+    vec2(448.0, 272.0), // lodestone_side
+    vec2(32.0, 176.0), // cake_top
+    vec2(240.0, 160.0), // cake_bottom
+    vec2(80.0, 192.0), // cauldron_bottom
+    vec2(96.0, 192.0), // cauldron_inner
+    vec2(128.0, 192.0), // cauldron_top
+    vec2(480.0, 176.0), // hopper_inside
+    vec2(480.0, 208.0) // hopper_top
 );
 
 vec2 minUVNormal(int blockIndex) {
