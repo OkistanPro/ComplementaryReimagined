@@ -2,6 +2,30 @@
 
 uniform sampler2D synMask;
 
+bool isTop(in vec3 normals) {
+	return normals.x <= 0.1 && normals.y >= 0.1 && normals.z <= 0.1;
+}
+
+bool isBottom(in vec3 normals) {
+	return normals.x >= -0.1 && normals.y <= -0.1 && normals.z >= -0.1;
+}
+
+bool isLeft(in vec3 normals) {
+	return normals.x >= 0.1 && normals.y <= 0.1 && normals.z <= 0.1;
+}
+
+bool isRight(in vec3 normals) {
+	return normals.x <= -0.1 && normals.y >= -0.1 && normals.z >= -0.1;
+}
+
+bool isFront(in vec3 normals) {
+	return normals.x <= 0.1 && normals.y <= 0.1 && normals.z >= 0.1;
+}
+
+bool isBack(in vec3 normals) {
+	return normals.x >= -0.1 && normals.y >= -0.1 && normals.z <= -0.1;
+}
+
 void SquareGrid(vec2 uv, out vec2 weights, out ivec2 vertex1, out ivec2 vertex2)
 {
     // New code for pixelated transitions
@@ -71,7 +95,7 @@ vec2 offsetToXxX(vec2 nbBlocks, in vec2 offset, in vec2 uv, float offsetAdjust, 
     offset = floor(offset * offsetAdjust) / offsetAdjust ; // Align to sub textures in the atlas
 
     // Align the offset to the brick grid
-    offset.y = floor(offset.y / heightAdjust) * heightAdjust; // Align to brick height grid
+    //offset.y = floor(offset.y / heightAdjust) * heightAdjust; // Align to brick height grid
 	
     vec2 uvCeil = ceil(uv);
 
@@ -93,7 +117,7 @@ vec2 offsetToXxX(vec2 nbBlocks, in vec2 offset, in vec2 uv, float offsetAdjust, 
 
 #if ANISOTROPIC_FILTER == 0
 
-vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, float offsetAdjust, float heightAdjust)
+vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, float offsetAdjust, float heightAdjust, in vec3 normals)
 {
     // Dynamically determine the atlas size
     vec2 atlasSize = vec2(textureSize(sampler, 0));
@@ -108,8 +132,28 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
 
     SquareGrid(blockUVFract, weights, tile1, tile2); // Weight is normalized for 16x16 pixels per cube
     float W = length(weights);
+    
+    ivec2 uniqueID;
+    
+    if (isFront(normals)) {
+    	uniqueID = ivec2(blockPos.x + blockPos.z, -blockPos.y);
+    }
+    if (isBack(normals)) {
+    	uniqueID = ivec2(-(blockPos.x + blockPos.z), -blockPos.y);
+    }
+    if (isTop(normals)) {
+    	uniqueID = ivec2(blockPos.x + blockPos.y, blockPos.z);
+    }
+    if (isBottom(normals)) {
+    	uniqueID = ivec2(-(blockPos.x + blockPos.y), -blockPos.z);
+    }
+    if (isLeft(normals)) {
+    	uniqueID = ivec2(-(blockPos.x + blockPos.z), -blockPos.y);
+    }
+    if (isRight(normals)) {
+    	uniqueID = ivec2(blockPos.x + blockPos.z, -blockPos.y);
+    }
 
-    ivec2 uniqueID = ivec2(blockPos.x + blockPos.y, blockPos.z);
     tile1 = uniqueID * ivec2(2, 2);
     tile2 = uniqueID * ivec2(2, 2) + tile2;
 

@@ -153,7 +153,7 @@ void main() {
     	#if ANISOTROPIC_FILTER > 0
     		vec4 colorP = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
     	#else
-    		vec4 colorP = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    		vec4 colorP = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0, vec3(0.0, 0.0, 0.0)).rgba;
     	#endif
     	
     #else

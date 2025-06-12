@@ -195,6 +195,7 @@ void main() {
         dither = fract(dither + goldenRatio * mod(float(frameCounter), 3600.0));
     #endif
     
+    vec3 worldGeoNormal = normalize(ViewToPlayer(normal * 10000.0));
 
     #ifdef TEXSYN_ENABLE
         ivec3 blockPosFrag = ivec3(floor(playerPosWithoutWaves + cameraPosition + 0.001));
@@ -205,10 +206,13 @@ void main() {
 
         vec4 color;
     	if (isWhite(texCoord)) {
-    		color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    		color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0, worldGeoNormal).rgba;
     		//color.rbga = getWhite(texCoord);
+    		//color.rgb = worldGeoNormal;
+    		//color.a = 1.0;
     	} else {
-    		color.rgba = texture(tex, texCoord);
+    		color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0, worldGeoNormal).rgba;
+    		//color.rgba = texture(tex, texCoord);
     		//color.rbga = getWhite(texCoord);
     	}
 
@@ -250,8 +254,7 @@ void main() {
     float smoothnessG = 0.0, highlightMult = 1.0, emission = 0.0, noiseFactor = 1.0, snowFactor = 1.0, snowMinNdotU = 0.0, noPuddles = 0.0;
     vec2 lmCoordM = lmCoord;
     vec3 normalM = normal, geoNormal = normal, shadowMult = vec3(1.0);
-    vec3 worldGeoNormal = normalize(ViewToPlayer(geoNormal * 10000.0));
-
+    
     #ifdef IPBR
         vec3 maRecolor = vec3(0.0);
         #include "/lib/materials/materialHandling/terrainMaterials.glsl"
