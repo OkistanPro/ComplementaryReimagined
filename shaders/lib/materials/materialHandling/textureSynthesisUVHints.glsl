@@ -1,11 +1,11 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 324
+#define NUM_NORMAL_BLOCKS 317
 #define NUM_4BRICKS_BLOCKS 2
 #define NUM_2BRICKS_BLOCKS 4
-#define BLR_BLOCKS 7
-#define BORDER_LESS_BLOCKS 26
-#define ROTATE_BLOCKS 93
+#define BLR_BLOCKS 12
+#define BORDER_LESS_BLOCKS 27
+#define ROTATE_BLOCKS 103
 
 
 // Define UV offsets for each block category
@@ -116,7 +116,6 @@ vec2(368.0, 144.0),
 vec2(368.0, 160.0),
 vec2(368.0, 176.0),
 vec2(368.0, 192.0),
-vec2(368.0, 240.0),
 vec2(384.0, 16.0),
 vec2(384.0, 32.0),
 vec2(384.0, 112.0),
@@ -135,7 +134,6 @@ vec2(432.0, 144.0),
 vec2(432.0, 224.0),
 vec2(448.0, 32.0),
 vec2(448.0, 48.0),
-vec2(448.0, 64.0),
 vec2(448.0, 96.0),
 vec2(448.0, 160.0),
 vec2(448.0, 176.0),
@@ -157,11 +155,9 @@ vec2(480.0, 176.0),
 vec2(480.0, 192.0),
 vec2(480.0, 240.0),
 vec2(496.0, 16.0),
-vec2(496.0, 48.0),
 vec2(32.0, 256.0),
 vec2(48.0, 256.0),
 vec2(80.0, 256.0),
-vec2(192.0, 256.0),
 vec2(64.0, 32.0),
 vec2(272.0, 256.0),
 vec2(416.0, 256.0),
@@ -200,7 +196,6 @@ vec2(80.0, 304.0),
 vec2(96.0, 304.0),
 vec2(112.0, 304.0),
 vec2(192.0, 304.0),
-vec2(256.0, 304.0),
 vec2(272.0, 304.0),
 vec2(336.0, 304.0),
 vec2(352.0, 304.0),
@@ -255,7 +250,6 @@ vec2(336.0, 384.0),
 vec2(352.0, 384.0),
 vec2(416.0, 384.0),
 vec2(448.0, 384.0),
-vec2(464.0, 384.0),
 vec2(256.0, 400.0),
 vec2(272.0, 400.0),
 vec2(304.0, 400.0),
@@ -313,7 +307,6 @@ vec2(512.0, 192.0),
 vec2(512.0, 208.0),
 vec2(512.0, 224.0),
 vec2(512.0, 272.0),
-vec2(512.0, 304.0),
 vec2(512.0, 320.0),
 vec2(96.0, 32.0),
 vec2(512.0, 336.0),
@@ -355,27 +348,32 @@ const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
     vec2(464.0, 352.0), // Polished Diorite
     vec2(480.0, 352.0), // Polished Granite
     vec2(496.0, 352.0), // Polished Tuff
-    vec2(208.0, 432.0) // Smooth Stone
+    vec2(208.0, 432.0), // Smooth Stone
+    vec2(448.0, 64.0), // gold_block
+    vec2(464.0, 384.0), // redstone_block
+    vec2(256.0, 304.0), // netherite_block
+    vec2(368.0, 240.0), // diamond_block
+    vec2(192.0, 256.0) // lapis_block
 );
 
 const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS](
-    vec2(48.0, 240.0),
-    vec2(256.0, 240.0),
-    vec2(352.0, 144.0),
-    vec2(352.0, 160.0),
-    vec2(352.0, 176.0),
-    vec2(352.0, 192.0),
-    vec2(352.0, 208.0),
-    vec2(352.0, 224.0),
-    vec2(352.0, 240.0),
-    vec2(368.0, 0.0),
-    vec2(384.0, 0.0),
-    vec2(384.0, 240.0),
-    vec2(448.0, 80.0),
-    vec2(496.0, 96.0),
-    vec2(208.0, 256.0),
-    vec2(128.0, 304.0),
-    vec2(64.0, 400.0),
+    vec2(48.0, 240.0), // coal_ore
+    vec2(256.0, 240.0), // copper_ore
+    vec2(352.0, 144.0), // deepslate_coal_ore
+    vec2(352.0, 160.0), // deepslate_copper_ore
+    vec2(352.0, 176.0), // deepslate_diamond_ore
+    vec2(352.0, 192.0), // deepslate_emerald_ore
+    vec2(352.0, 208.0), // deepslate_gold_ore
+    vec2(352.0, 224.0), // deepslate_iron_ore
+    vec2(352.0, 240.0), // deepslate_lapis_ore
+    vec2(368.0, 0.0), // deepslate_redstone_ore
+    vec2(384.0, 0.0), // diamond_ore
+    vec2(384.0, 240.0), // emerald_ore
+    vec2(448.0, 80.0), // gold_ore
+    vec2(496.0, 96.0), // iron_ore
+    vec2(208.0, 256.0), // lapis_ore
+    vec2(128.0, 304.0), // nether_gold_ore
+    vec2(64.0, 400.0), // redstone_ore
     vec2(176.0, 96.0), // beehive_end
     vec2(512.0, 96.0), // verdant_froglight_side
     vec2(512.0, 112.0), // verdant_froglight_top
@@ -384,7 +382,8 @@ const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS]
     vec2(16.0, 320.0), // ochre_froglight_side
     vec2(32.0, 320.0), // ochre_froglight_top
     vec2(432.0, 416.0), // shroomlight
-    vec2(464.0, 336.0) // piston_bottom
+    vec2(464.0, 336.0), // piston_bottom
+    vec2(496.0, 48.0) // iron_block
 );
 
 const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
@@ -427,7 +426,7 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(304.0, 192.0), // cut_sandstone
     vec2(400.0, 352.0), // polished_basalt_top
     vec2(80.0, 384.0), // quartz_pillar_top
-    vec2(176.0, 224.0), // chiseled_tuff_bricks_top -> a voir
+    vec2(176.0, 224.0), // chiseled_tuff_bricks_top
     vec2(112.0, 400.0), // reinforced_deepslate_bottom
     vec2(144.0, 400.0), // reinforced_deepslate_top
     vec2(256.0, 112.0), // copper_block
@@ -480,7 +479,17 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(144.0, 496.0), // trial_spawner_top_inactive_ominous
     vec2(480.0, 336.0), // piston_inner
     vec2(240.0, 480.0), // target_side
-    vec2(256.0, 480.0) // target_top
+    vec2(256.0, 480.0), // target_top
+    vec2(384.0, 224.0), // emerald_block
+    vec2(160.0, 0.0), // bamboo_trapdoor
+    vec2(144.0, 208.0), // cherry_trapdoor
+    vec2(272.0, 0.0), // copper_trapdoor
+    vec2(416.0, 32.0), // exposed_copper_trapdoor
+    vec2(496.0, 112.0), // iron_trapdoor
+    vec2(368.0, 288.0), // mangrove_trapdoor
+    vec2(416.0, 304.0), // oak_trapdoor
+    vec2(416.0, 320.0), // oxidized_copper_trapdoor
+    vec2(528.0, 0.0) // weathered_copper_trapdoor
 );
 
 vec2 minUVNormal(int blockIndex) {
