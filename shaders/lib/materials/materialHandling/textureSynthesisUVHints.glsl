@@ -1,11 +1,11 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 317
-#define NUM_4BRICKS_BLOCKS 2
-#define NUM_2BRICKS_BLOCKS 4
+#define NUM_NORMAL_BLOCKS 285
+#define NUM_4BRICKS_BLOCKS 5
+#define NUM_2BRICKS_BLOCKS 13
 #define BLR_BLOCKS 12
 #define BORDER_LESS_BLOCKS 27
-#define ROTATE_BLOCKS 103
+#define ROTATE_BLOCKS 110
 
 
 // Define UV offsets for each block category
@@ -26,7 +26,6 @@ vec2(128.0, 80.0),
 vec2(128.0, 96.0),
 vec2(128.0, 112.0),
 vec2(144.0, 0.0),
-vec2(144.0, 32.0),
 vec2(144.0, 48.0),
 vec2(144.0, 112.0),
 vec2(160.0, 32.0),
@@ -53,7 +52,6 @@ vec2(0.0, 144.0),
 vec2(16.0, 144.0),
 vec2(48.0, 144.0),
 vec2(80.0, 144.0),
-vec2(144.0, 144.0),
 vec2(192.0, 144.0),
 vec2(208.0, 144.0),
 vec2(0.0, 160.0),
@@ -74,11 +72,6 @@ vec2(32.0, 240.0),
 vec2(64.0, 240.0),
 vec2(80.0, 240.0),
 vec2(96.0, 240.0),
-vec2(272.0, 32.0),
-vec2(272.0, 48.0),
-vec2(272.0, 64.0),
-vec2(272.0, 80.0),
-vec2(272.0, 96.0),
 vec2(288.0, 128.0),
 vec2(288.0, 144.0),
 vec2(288.0, 160.0),
@@ -106,22 +99,11 @@ vec2(352.0, 112.0),
 vec2(352.0, 128.0),
 vec2(368.0, 16.0),
 vec2(368.0, 32.0),
-vec2(368.0, 48.0),
-vec2(368.0, 64.0),
-vec2(368.0, 80.0),
-vec2(368.0, 96.0),
-vec2(368.0, 112.0),
-vec2(368.0, 128.0),
-vec2(368.0, 144.0),
-vec2(368.0, 160.0),
-vec2(368.0, 176.0),
-vec2(368.0, 192.0),
 vec2(384.0, 16.0),
 vec2(384.0, 32.0),
 vec2(384.0, 112.0),
 vec2(384.0, 176.0),
 vec2(400.0, 112.0),
-vec2(400.0, 128.0),
 vec2(400.0, 160.0),
 vec2(416.0, 48.0),
 vec2(416.0, 160.0),
@@ -158,8 +140,6 @@ vec2(496.0, 16.0),
 vec2(32.0, 256.0),
 vec2(48.0, 256.0),
 vec2(80.0, 256.0),
-vec2(64.0, 32.0),
-vec2(272.0, 256.0),
 vec2(416.0, 256.0),
 vec2(432.0, 256.0),
 vec2(0.0, 272.0),
@@ -185,16 +165,13 @@ vec2(352.0, 288.0),
 vec2(400.0, 288.0),
 vec2(448.0, 288.0),
 vec2(464.0, 288.0),
-vec2(480.0, 288.0),
 vec2(496.0, 288.0),
-vec2(0.0, 304.0),
 vec2(16.0, 304.0),
 vec2(32.0, 304.0),
 vec2(48.0, 304.0),
 vec2(64.0, 304.0),
 vec2(80.0, 304.0),
 vec2(96.0, 304.0),
-vec2(112.0, 304.0),
 vec2(192.0, 304.0),
 vec2(272.0, 304.0),
 vec2(336.0, 304.0),
@@ -221,7 +198,6 @@ vec2(448.0, 336.0),
 vec2(176.0, 352.0),
 vec2(192.0, 352.0),
 vec2(384.0, 352.0),
-vec2(432.0, 352.0),
 vec2(176.0, 368.0),
 vec2(224.0, 368.0),
 vec2(240.0, 368.0),
@@ -235,7 +211,6 @@ vec2(464.0, 368.0),
 vec2(0.0, 384.0),
 vec2(16.0, 384.0),
 vec2(32.0, 384.0),
-vec2(48.0, 384.0),
 vec2(64.0, 384.0),
 vec2(128.0, 384.0),
 vec2(144.0, 384.0),
@@ -243,7 +218,6 @@ vec2(160.0, 384.0),
 vec2(208.0, 384.0),
 vec2(224.0, 384.0),
 vec2(272.0, 384.0),
-vec2(288.0, 384.0),
 vec2(304.0, 384.0),
 vec2(320.0, 384.0),
 vec2(336.0, 384.0),
@@ -251,7 +225,6 @@ vec2(352.0, 384.0),
 vec2(416.0, 384.0),
 vec2(448.0, 384.0),
 vec2(256.0, 400.0),
-vec2(272.0, 400.0),
 vec2(304.0, 400.0),
 vec2(432.0, 400.0),
 vec2(480.0, 400.0),
@@ -275,7 +248,6 @@ vec2(256.0, 448.0),
 vec2(272.0, 448.0),
 vec2(304.0, 448.0),
 vec2(352.0, 448.0),
-vec2(368.0, 448.0),
 vec2(448.0, 448.0),
 vec2(480.0, 448.0),
 vec2(496.0, 448.0),
@@ -301,16 +273,12 @@ vec2(80.0, 480.0),
 vec2(272.0, 480.0),
 vec2(208.0, 496.0),
 vec2(240.0, 496.0),
-vec2(256.0, 496.0),
 vec2(512.0, 128.0),
 vec2(512.0, 192.0),
 vec2(512.0, 208.0),
 vec2(512.0, 224.0),
 vec2(512.0, 272.0),
 vec2(512.0, 320.0),
-vec2(96.0, 32.0),
-vec2(512.0, 336.0),
-vec2(512.0, 352.0),
 vec2(512.0, 384.0),
 vec2(528.0, 16.0),
 vec2(528.0, 64.0),
@@ -330,15 +298,27 @@ vec2(448.0, 112.0)
 );
 
 const vec2 bricks4BlockOffsets[NUM_4BRICKS_BLOCKS] = vec2[NUM_4BRICKS_BLOCKS](
-    vec2(688.0, 368.0),  // Oak Planks
-    vec2(272.0, 224.0)  // acacia planks
+    vec2(144.0, 144.0), // bricks
+    vec2(272.0, 64.0), // cracked_nether_bricks
+    vec2(112.0, 304.0), // nether_bricks
+    vec2(288.0, 384.0), // red_nether_bricks
+    vec2(272.0, 400.0) // resin_bricks
 );
 
 const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
-    vec2(112.0, 448.0),  // Stone Bricks
-    vec2(96.0, 320.0),  // End stone bricks
-    vec2(272.0, 368.0),   // Mossy stone bricks
-    vec2(64.0, 256.0)   // Books chelf
+    vec2(64.0, 256.0),   // Books chelf
+    vec2(272.0, 32.0), // cracked_deepslate_bricks
+    vec2(272.0, 48.0), // cracked_deepslate_tiles
+    vec2(272.0, 80.0), // cracked_polished_blackstone_bricks
+    vec2(272.0, 96.0), // cracked_stone_bricks
+    vec2(352.0, 58.0), // deepslate_bricks
+    vec2(400.0, 128.0), // end_stone_bricks
+    vec2(480.0, 288.0), // mossy_stone_bricks
+    vec2(0.0, 304.0), // mud_bricks
+    vec2(48.0, 384.0), // quartz_bricks
+    vec2(368.0, 448.0), // stone_bricks
+    vec2(256.0, 496.0), // tuff_bricks
+    vec2(432.0, 352.0) // polished_blackstone_bricks
 );
 
 const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
@@ -489,7 +469,14 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(368.0, 288.0), // mangrove_trapdoor
     vec2(416.0, 304.0), // oak_trapdoor
     vec2(416.0, 320.0), // oxidized_copper_trapdoor
-    vec2(528.0, 0.0) // weathered_copper_trapdoor
+    vec2(528.0, 0.0), // weathered_copper_trapdoor
+    vec2(256.0, 32.0), // composter_compost
+    vec2(256.0, 48.0), // composter_ready
+    vec2(256.0, 80.0), // composter_top
+    vec2(336.0, 32.0), // daylight_detector_inverted_top
+    vec2(336.0, 64.0), // daylight_detector_top
+    vec2(336.0, 48.0), // daylight_detector_side
+    vec2(480.0, 20.8) // hopper_top
 );
 
 vec2 minUVNormal(int blockIndex) {
