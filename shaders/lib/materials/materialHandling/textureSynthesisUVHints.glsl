@@ -1,11 +1,11 @@
 // uv offsets
 
-#define NUM_NORMAL_BLOCKS 285
-#define NUM_4BRICKS_BLOCKS 5
-#define NUM_2BRICKS_BLOCKS 13
-#define BLR_BLOCKS 43
-#define BORDER_LESS_BLOCKS 31
-#define ROTATE_BLOCKS 87
+#define NUM_NORMAL_BLOCKS 274
+#define NUM_4BRICKS_BLOCKS 10
+#define NUM_2BRICKS_BLOCKS 18
+#define BLR_BLOCKS 47
+#define BORDER_LESS_BLOCKS 26
+#define ROTATE_BLOCKS 105
 
 
 // Define UV offsets for each block category
@@ -20,9 +20,6 @@ vec2(48.0, 96.0),
 vec2(80.0, 96.0),
 vec2(112.0, 96.0),
 vec2(64.0, 112.0),
-vec2(128.0, 16.0),
-vec2(128.0, 80.0),
-vec2(128.0, 96.0),
 vec2(128.0, 112.0),
 vec2(144.0, 0.0),
 vec2(144.0, 48.0),
@@ -64,7 +61,6 @@ vec2(192.0, 192.0),
 vec2(64.0, 208.0),
 vec2(80.0, 208.0),
 vec2(112.0, 208.0),
-vec2(224.0, 224.0),
 vec2(240.0, 224.0),
 vec2(0.0, 240.0),
 vec2(32.0, 240.0),
@@ -88,7 +84,6 @@ vec2(320.0, 96.0),
 vec2(320.0, 176.0),
 vec2(320.0, 192.0),
 vec2(320.0, 224.0),
-vec2(336.0, 16.0),
 vec2(336.0, 96.0),
 vec2(336.0, 144.0),
 vec2(336.0, 208.0),
@@ -108,10 +103,6 @@ vec2(416.0, 48.0),
 vec2(416.0, 160.0),
 vec2(432.0, 32.0),
 vec2(432.0, 64.0),
-vec2(432.0, 96.0),
-vec2(432.0, 112.0),
-vec2(432.0, 128.0),
-vec2(432.0, 144.0),
 vec2(432.0, 224.0),
 vec2(448.0, 32.0),
 vec2(448.0, 48.0),
@@ -196,20 +187,14 @@ vec2(416.0, 336.0),
 vec2(448.0, 336.0),
 vec2(176.0, 352.0),
 vec2(192.0, 352.0),
-vec2(384.0, 352.0),
 vec2(176.0, 368.0),
 vec2(224.0, 368.0),
-vec2(240.0, 368.0),
 vec2(256.0, 368.0),
 vec2(320.0, 368.0),
 vec2(336.0, 368.0),
 vec2(352.0, 368.0),
 vec2(432.0, 368.0),
 vec2(448.0, 368.0),
-vec2(464.0, 368.0),
-vec2(0.0, 384.0),
-vec2(16.0, 384.0),
-vec2(32.0, 384.0),
 vec2(64.0, 384.0),
 vec2(128.0, 384.0),
 vec2(144.0, 384.0),
@@ -237,18 +222,15 @@ vec2(176.0, 416.0),
 vec2(240.0, 416.0),
 vec2(256.0, 416.0),
 vec2(464.0, 416.0),
-vec2(96.0, 432.0),
 vec2(192.0, 432.0),
 vec2(16.0, 448.0),
 vec2(112.0, 448.0),
-vec2(128.0, 448.0),
 vec2(176.0, 448.0),
 vec2(256.0, 448.0),
 vec2(272.0, 448.0),
 vec2(304.0, 448.0),
 vec2(352.0, 448.0),
 vec2(448.0, 448.0),
-vec2(480.0, 448.0),
 vec2(0.0, 464.0),
 vec2(32.0, 464.0),
 vec2(64.0, 464.0),
@@ -288,13 +270,20 @@ vec2(528.0, 464.0),
 vec2(528.0, 480.0),
 vec2(544.0, 48.0),
 vec2(544.0, 64.0),
-vec2(160.0, 304.0),
 vec2(128.0, 304.0),
 vec2(416.0, 64.0),
 vec2(416.0, 80.0),
 vec2(448.0, 112.0),
-vec2(304.0, 176.0), // cut_red_sandstone
-    vec2(304.0, 192.0) // cut_sandstone
+vec2(976.0, 48.0), // cut_sandstone/0
+vec2(976.0, 64.0), // cut_sandstone/1
+vec2(976.0, 80.0), // cut_sandstone/2
+vec2(960.0, 496.0), // cut_red_sandstone/0
+vec2(976.0, 0.0), // cut_red_sandstone/1
+vec2(976.0, 16.0), // cut_red_sandstone/2
+vec2(256.0, 64.0), // composter_side
+vec2(976.0, 128.0), // sandstone/0
+vec2(976.0, 112.0), // red_sandstone/0
+vec2(0.0, 384.0) // quartz_block_bottom
 );
 
 const vec2 bricks4BlockOffsets[NUM_4BRICKS_BLOCKS] = vec2[NUM_4BRICKS_BLOCKS](
@@ -302,11 +291,15 @@ const vec2 bricks4BlockOffsets[NUM_4BRICKS_BLOCKS] = vec2[NUM_4BRICKS_BLOCKS](
     vec2(272.0, 64.0), // cracked_nether_bricks
     vec2(112.0, 304.0), // nether_bricks
     vec2(288.0, 384.0), // red_nether_bricks
-    vec2(272.0, 400.0) // resin_bricks
+    vec2(272.0, 400.0), // resin_bricks
+    vec2(400.0, 464.0), // sugar_cane
+    vec2(176.0, 64.0), // bee_nest_side
+    vec2(480.0, 448.0), // stripped_bamboo_block
+    vec2(128.0, 16.0), // bamboo_block
+    vec2(336.0, 16.0) // dark_prismarine
 );
 
 const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
-    vec2(64.0, 256.0),   // Books chelf
     vec2(272.0, 32.0), // cracked_deepslate_bricks
     vec2(272.0, 48.0), // cracked_deepslate_tiles
     vec2(272.0, 80.0), // cracked_polished_blackstone_bricks
@@ -318,7 +311,13 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(48.0, 384.0), // quartz_bricks
     vec2(368.0, 448.0), // stone_bricks
     vec2(256.0, 496.0), // tuff_bricks
-    vec2(432.0, 352.0) // polished_blackstone_bricks
+    vec2(432.0, 352.0), // polished_blackstone_bricks
+    vec2(544.0, 80.0), // bookshelf/0
+    vec2(544.0, 96.0), // bookshelf/1
+    vec2(544.0, 112.0), // bookshelf/2
+    vec2(544.0, 128.0), // bookshelf/3
+    vec2(176.0, 208.0), // chiseled_bookshelf_empty
+    vec2(192.0, 208.0) // chiseled_bookshelf_occupied
 );
 
 const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
@@ -328,12 +327,6 @@ const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
     vec2(464.0, 352.0), // Polished Diorite
     vec2(480.0, 352.0), // Polished Granite
     vec2(496.0, 352.0), // Polished Tuff
-    vec2(208.0, 432.0), // Smooth Stone
-    vec2(448.0, 64.0), // gold_block
-    vec2(464.0, 384.0), // redstone_block
-    vec2(256.0, 304.0), // netherite_block
-    vec2(368.0, 240.0), // diamond_block
-    vec2(192.0, 256.0), // lapis_block
     vec2(256.0, 112.0), // copper_block
     vec2(256.0, 128.0), // copper_bulb
     vec2(256.0, 144.0), // copper_bulb_lit
@@ -364,7 +357,17 @@ const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
     vec2(416.0, 320.0), // oxidized_copper_trapdoor
     vec2(528.0, 0.0), // weathered_copper_trapdoor
     vec2(272.0, 0.0), // copper_trapdoor
-    vec2(416.0, 32.0) // exposed_copper_trapdoor
+    vec2(416.0, 32.0), // exposed_copper_trapdoor
+    vec2(144.0, 208.0), // cherry_trapdoor
+    vec2(208.0, 432.0), // Smooth Stone
+    vec2(16.0, 384.0), // quartz_block_side
+    vec2(32.0, 384.0), // quartz_block_top
+    vec2(432.0, 416.0), // shroomlight
+    vec2(448.0, 64.0), // gold_block
+    vec2(464.0, 384.0), // redstone_block
+    vec2(256.0, 304.0), // netherite_block
+    vec2(368.0, 240.0), // diamond_block
+    vec2(192.0, 256.0) // lapis_block
 );
 
 const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS](
@@ -385,20 +388,15 @@ const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS]
     vec2(208.0, 256.0), // lapis_ore
     vec2(128.0, 304.0), // nether_gold_ore
     vec2(64.0, 400.0), // redstone_ore
-    vec2(176.0, 96.0), // beehive_end
     vec2(512.0, 96.0), // verdant_froglight_side
     vec2(512.0, 112.0), // verdant_froglight_top
     vec2(192.0, 336.0), // pearlescent_froglight_side
     vec2(208.0, 336.0), // pearlescent_froglight_top
     vec2(16.0, 320.0), // ochre_froglight_side
     vec2(32.0, 320.0), // ochre_froglight_top
-    vec2(432.0, 416.0), // shroomlight
-    vec2(464.0, 336.0), // piston_bottom
-    vec2(496.0, 48.0), // iron_block
     vec2(48.0, 144.0), // bookshelf
-    vec2(176.0, 208.0), // chiseled_bookshelf_empty
-    vec2(192.0, 208.0), // chiseled_bookshelf_occupied
-    vec2(112.0, 432.0) // smoker_bottom
+    vec2(112.0, 432.0), // smoker_bottom
+    vec2(160.0, 304.0) // nether_quartz_ore
 );
 
 const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
@@ -468,7 +466,6 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(256.0, 480.0), // target_top
     vec2(384.0, 224.0), // emerald_block
     vec2(160.0, 0.0), // bamboo_trapdoor
-    vec2(144.0, 208.0), // cherry_trapdoor
     vec2(496.0, 112.0), // iron_trapdoor
     vec2(368.0, 288.0), // mangrove_trapdoor
     vec2(416.0, 304.0), // oak_trapdoor
@@ -478,7 +475,6 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(336.0, 32.0), // daylight_detector_inverted_top
     vec2(336.0, 64.0), // daylight_detector_top
     vec2(336.0, 48.0), // daylight_detector_side
-    vec2(480.0, 20.8), // hopper_top
     vec2(496.0, 448.0), // stripped_bamboo_block_top
     vec2(128.0, 32.0), // bamboo_block_top
     vec2(448.0, 272.0), // lodestone_side
@@ -488,7 +484,27 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(96.0, 192.0), // cauldron_inner
     vec2(128.0, 192.0), // cauldron_top
     vec2(480.0, 176.0), // hopper_inside
-    vec2(480.0, 208.0) // hopper_top
+    vec2(480.0, 208.0), // hopper_top
+    vec2(416.0, 480.0), // tnt_top
+    vec2(384.0, 480.0), // tnt_bottom
+    vec2(512.0, 32.0), // vault_top
+    vec2(512.0, 48.0), // vault_top_ejecting
+    vec2(512.0, 64.0), // vault_top_ejecting_ominous
+    vec2(512.0, 80.0), // vault_top_ominous
+    vec2(384.0, 96.0), // dispenser_front_vertical
+    vec2(384.0, 208.0), // dropper_front_vertical
+    vec2(208.0, 224.0), // chorus_flower
+    vec2(224.0, 224.0), // chorus_flower_dead
+    vec2(32.0, 416.0), // scaffolding_bottom
+    vec2(64.0, 416.0), // scaffolding_top
+    vec2(96.0, 416.0), // sculk_catalyst_bottom
+    vec2(48.0, 432.0), // smithing_table_bottom
+    vec2(96.0, 432.0), // smithing_table_top
+    vec2(464.0, 336.0), // piston_bottom
+    vec2(144.0, 160.0), // budding_amethyst
+    vec2(160.0, 112.0), // beacon
+    vec2(128.0, 448.0), // soul_soil
+    vec2(384.0, 448.0) // stonecutter_bottom
 );
 
 vec2 minUVNormal(int blockIndex) {
