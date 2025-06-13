@@ -43,12 +43,12 @@ vec4 textureAF(sampler2D texSampler, vec2 uv) {
     float samplesDiv2 = ANISOTROPIC_FILTER / 2.0;
     vec2 ADivSamples = A / ANISOTROPIC_FILTER;
 
-    vec4 filteredColor = vec4(0.0);
+    vec4 filteredColor = vec4(0.0001);
     vec4 spriteBoundsM = mix(spriteBounds, vec4(midCoord, midCoord), 0.0001); // Fixes some mods causing issues with cutout blocks
     for (float i = -samplesDiv2 + 0.5; i < samplesDiv2; i++) {
         vec2 sampleUV = uv + ADivSamples * i;
         sampleUV = clamp(sampleUV, spriteBoundsM.xy, spriteBoundsM.zw);
-        vec4 colorSample = texture2DLod(texSampler, sampleUV, lod);
+        vec4 colorSample = textureLod(texSampler, sampleUV, lod);
 
         filteredColor.rgb += colorSample.rgb * colorSample.a;
         filteredColor.a += colorSample.a;

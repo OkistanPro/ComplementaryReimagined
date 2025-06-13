@@ -26,6 +26,30 @@ bool isBack(in vec3 normals) {
 	return normals.x >= -0.1 && normals.y >= -0.1 && normals.z <= -0.1;
 }
 
+ivec2 getUniqueID(in vec3 normals, in ivec3 blockPos) {
+	ivec2 uniqueID;
+	if (isFront(normals)) {
+    	uniqueID = ivec2(blockPos.x + blockPos.z, -blockPos.y);
+    }
+    if (isBack(normals)) {
+    	uniqueID = ivec2(-(blockPos.x + blockPos.z), -blockPos.y);
+    }
+    if (isTop(normals)) {
+    	uniqueID = ivec2(blockPos.x + blockPos.y, blockPos.z);
+    }
+    if (isBottom(normals)) {
+    	uniqueID = ivec2(-(blockPos.x + blockPos.y), -blockPos.z);
+    }
+    if (isLeft(normals)) {
+    	uniqueID = ivec2(-(blockPos.x + blockPos.z), -blockPos.y);
+    }
+    if (isRight(normals)) {
+    	uniqueID = ivec2(blockPos.x + blockPos.z, -blockPos.y);
+    }
+    
+    return uniqueID;
+}
+
 void SquareGrid(vec2 uv, out vec2 weights, out ivec2 vertex1, out ivec2 vertex2)
 {
     // New code for pixelated transitions
@@ -125,6 +149,9 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
     ivec2 tile1;
     ivec2 tile2;
     vec2 weights;
+    
+    vec2 dfdx_uv = dFdx(uv);
+    vec2 dfdy_uv = dFdy(uv);
 
     vec2 blockUV = uv * nbBlocks;
     vec2 blockUVFract = fract(blockUV);
@@ -133,26 +160,7 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
     SquareGrid(blockUVFract, weights, tile1, tile2); // Weight is normalized for 16x16 pixels per cube
     float W = length(weights);
     
-    ivec2 uniqueID;
-    
-    if (isFront(normals)) {
-    	uniqueID = ivec2(blockPos.x + blockPos.z, -blockPos.y);
-    }
-    if (isBack(normals)) {
-    	uniqueID = ivec2(-(blockPos.x + blockPos.z), -blockPos.y);
-    }
-    if (isTop(normals)) {
-    	uniqueID = ivec2(blockPos.x + blockPos.y, blockPos.z);
-    }
-    if (isBottom(normals)) {
-    	uniqueID = ivec2(-(blockPos.x + blockPos.y), -blockPos.z);
-    }
-    if (isLeft(normals)) {
-    	uniqueID = ivec2(-(blockPos.x + blockPos.z), -blockPos.y);
-    }
-    if (isRight(normals)) {
-    	uniqueID = ivec2(blockPos.x + blockPos.z, -blockPos.y);
-    }
+    ivec2 uniqueID = getUniqueID(normals, blockPos);
 
     tile1 = uniqueID * ivec2(2, 2);
     tile2 = uniqueID * ivec2(2, 2) + tile2;
@@ -171,8 +179,11 @@ vec4 TilingAndBlending(in sampler2D sampler, in vec2 uv, in ivec3 blockPos, floa
     //vec4 content1 = texture2DLod(sampler, uvContent1, 0.0) - mean;
     //vec4 content2 = texture2DLod(sampler, uvContent2, 0.0) - mean;
 
-    vec4 content1 = texelFetch(tex, ivec2(uvContent1 * atlasSize), 0) - mean; // usage de texelFetch pour éviter des artefacts avec floor()
-    vec4 content2 = texelFetch(tex, ivec2(uvContent2 * atlasSize), 0) - mean;
+    //vec4 content1 = texelFetch(tex, ivec2(uvContent1 * atlasSize), 0) - mean; // usage de texelFetch pour éviter des artefacts avec floor()
+    //vec4 content2 = texelFetch(tex, ivec2(uvContent2 * atlasSize), 0) - mean;
+    
+    vec4 content1 = textureGrad(tex, uvContent1, dfdx_uv, dfdy_uv) - mean;
+    vec4 content2 = textureGrad(tex, uvContent2, dfdx_uv, dfdy_uv) - mean;
 
     vec4 value = content1 * weights.x + content2 * weights.y;
     return value / W + mean;
