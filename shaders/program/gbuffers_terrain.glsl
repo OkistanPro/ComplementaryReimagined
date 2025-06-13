@@ -176,8 +176,11 @@ void DoOceanBlockTweaks(inout float smoothnessD) {
     #include "/lib/materials/materialMethods/textureSynthesis.glsl"
 #endif
 
+#include "/lib/textRendering/textRenderer.glsl"
+
 //Program//
 void main() {
+	beginText(ivec2(gl_FragCoord.xy/6), ivec2(50, 50));
     vec3 screenPos = vec3(gl_FragCoord.xy/ vec2(viewWidth, viewHeight), gl_FragCoord.z);
     #ifdef TAA
         vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
@@ -206,12 +209,18 @@ void main() {
 
         vec4 color;
     	if (isWhite(texCoord)) {
-    		color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0, worldGeoNormal).rgba;
+    		int changeprog = (frameCounter/600)%10;
+    		text.fgCol = vec4(1.0, 0.0, 0.0, 1.0);
+  			text.bgCol = vec4(0.0, 0.0, 0.0, 1.0);
+    		printString((_S, _y, _n, _t, _h, _e, _s, _e, _space));
+    		printInt(changeprog);
+    		color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, changeprog).rgba;
     		//color.rbga = getWhite(texCoord);
     		//color.rgb = worldGeoNormal;
     		//color.a = 1.0;
     	} else {
-    		color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0, worldGeoNormal).rgba;
+    		int changeprog = (frameCounter/600)%10;
+    		color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, changeprog).rgba;
     		//color.rgba = texture(tex, texCoord);
     		//color.rbga = getWhite(texCoord);
     	}
@@ -220,9 +229,11 @@ void main() {
 
         vec4 color;
     	if (isWhite(texCoord)) {
-    		color.rgba = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    		color.rgba = TilingAndBlendingAFMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 0).rgba;
     		//color.rbga = getWhite(texCoord);
     	} else {
+    		vec2 dfdx = dFdx(texCoord);
+    		vec2 dfdy = dFdy(texCoord);
     		color.rgba = textureAF(tex, texCoord);
     		//color.rbga = getWhite(texCoord);
     	}
@@ -237,8 +248,6 @@ void main() {
     #endif
 
     #endif
-
-
 
     float smoothnessD = 0.0, materialMask = 0.0, skyLightFactor = 0.0;
 
@@ -393,6 +402,8 @@ void main() {
     #ifdef COLOR_CODED_PROGRAMS
         ColorCodeProgram(color, mat);
     #endif
+    
+    endText(color.rgb);
 
     /* DRAWBUFFERS:06 */
     gl_FragData[0] = color;
@@ -402,6 +413,7 @@ void main() {
         /* DRAWBUFFERS:065 */
         gl_FragData[2] = vec4(mat3(gbufferModelViewInverse) * normalM, 1.0);
     #endif
+    
 }
 
 #endif

@@ -151,9 +151,9 @@ void main() {
     #ifdef TEXSYN_ENABLE
     	ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
     	#if ANISOTROPIC_FILTER > 0
-    		vec4 colorP = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+    		vec4 colorP = TilingAndBlendingAFMethod(tex, texCoord, blockPosFrag, vec3(0.0, 1.0, 0.0), 4).rgba;
     	#else
-    		vec4 colorP = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0, vec3(0.0, 0.0, 0.0)).rgba;
+    		vec4 colorP = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, vec3(0.0, 1.0, 0.0), 4).rgba;
     	#endif
     	
     #else
