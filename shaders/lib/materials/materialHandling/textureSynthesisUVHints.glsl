@@ -1,7 +1,7 @@
 // uv offsets
 #define NUM_NORMAL_BLOCKS 247
 #define NUM_4BRICKS_BLOCKS 11
-#define NUM_2BRICKS_BLOCKS 15
+#define NUM_2BRICKS_BLOCKS 19
 #define BLR_BLOCKS 44
 #define BORDER_LESS_BLOCKS 23
 #define ROTATE_BLOCKS 103
@@ -286,7 +286,11 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(432.0, 352.0), //polished_blackstone_bricks
     vec2(48.0, 384.0), //quartz_bricks
     vec2(368.0, 448.0), //stone_bricks
-    vec2(256.0, 496.0) //tuff_bricks
+    vec2(256.0, 496.0), //tuff_bricks
+    vec2(544.0, 80.0), //bookshelf0
+    vec2(544.0, 96.0), //bookshelf1
+    vec2(544.0, 112.0), //bookshelf2
+    vec2(544.0, 128.0), //bookshelf3
 );
 
 const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
