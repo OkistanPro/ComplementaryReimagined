@@ -1,11 +1,10 @@
 // uv offsets
-#define NUM_NORMAL_BLOCKS 239
+#define NUM_NORMAL_BLOCKS 247
 #define NUM_4BRICKS_BLOCKS 11
 #define NUM_2BRICKS_BLOCKS 15
-#define BLR_BLOCKS 23
-#define BORDER_LESS_BLOCKS 44
+#define BLR_BLOCKS 44
+#define BORDER_LESS_BLOCKS 23
 #define ROTATE_BLOCKS 103
-
 
 // Define UV offsets for each block category
 const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
@@ -248,6 +247,14 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(528.0, 480.0), //yellow_concrete_powder
     vec2(544.0, 48.0), //yellow_terracotta
     vec2(544.0, 64.0), //yellow_wool
+    vec2(960.0, 496.0), //sandstonecut_red_sandstone
+    vec2(976.0, 0.0), //sandstonecut_red_sandstone
+    vec2(976.0, 16.0), //sandstonecut_red_sandstone
+    vec2(976.0, 48.0), //sandstonecut_sandstone
+    vec2(976.0, 64.0), //sandstonecut_sandstone
+    vec2(976.0, 80.0), //sandstonecut_sandstone
+    vec2(976.0, 112.0), //sandstonered_sandstone
+    vec2(976.0, 128.0) //sandstonesandstone
 );
 
 const vec2 bricks4BlockOffsets[NUM_4BRICKS_BLOCKS] = vec2[NUM_4BRICKS_BLOCKS](
@@ -261,7 +268,7 @@ const vec2 bricks4BlockOffsets[NUM_4BRICKS_BLOCKS] = vec2[NUM_4BRICKS_BLOCKS](
     vec2(288.0, 384.0), //red_nether_bricks
     vec2(272.0, 400.0), //resin_bricks
     vec2(480.0, 448.0), //stripped_bamboo_block
-    vec2(400.0, 464.0), //sugar_cane
+    vec2(400.0, 464.0) //sugar_cane
 );
 
 const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
@@ -279,7 +286,7 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(432.0, 352.0), //polished_blackstone_bricks
     vec2(48.0, 384.0), //quartz_bricks
     vec2(368.0, 448.0), //stone_bricks
-    vec2(256.0, 496.0), //tuff_bricks
+    vec2(256.0, 496.0) //tuff_bricks
 );
 
 const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
@@ -326,7 +333,7 @@ const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
     vec2(512.0, 432.0), //weathered_copper_bulb_lit_powered
     vec2(512.0, 448.0), //weathered_copper_bulb_powered
     vec2(512.0, 496.0), //weathered_copper_grate
-    vec2(528.0, 0.0), //weathered_copper_trapdoor
+    vec2(528.0, 0.0) //weathered_copper_trapdoor
 );
 
 const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS](
@@ -352,7 +359,7 @@ const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS]
     vec2(208.0, 336.0), //pearlescent_froglight_top
     vec2(64.0, 400.0), //redstone_ore
     vec2(512.0, 96.0), //verdant_froglight_side
-    vec2(512.0, 112.0), //verdant_froglight_top
+    vec2(512.0, 112.0) //verdant_froglight_top
 );
 
 const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
@@ -458,7 +465,7 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(512.0, 48.0), //vault_top_ejecting
     vec2(512.0, 64.0), //vault_top_ejecting_ominous
     vec2(512.0, 80.0), //vault_top_ominous
-    vec2(512.0, 288.0), //warped_stem_top
+    vec2(512.0, 288.0) //warped_stem_top
 );
 
 vec2 minUVNormal(int blockIndex) {
