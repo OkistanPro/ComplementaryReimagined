@@ -1,10 +1,10 @@
 // uv offsets
-#define NUM_NORMAL_BLOCKS 247
+#define NUM_NORMAL_BLOCKS 242
 #define NUM_4BRICKS_BLOCKS 11
 #define NUM_2BRICKS_BLOCKS 19
 #define BLR_BLOCKS 44
 #define BORDER_LESS_BLOCKS 23
-#define ROTATE_BLOCKS 103
+#define ROTATE_BLOCKS 104
 
 // Define UV offsets for each block category
 const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
@@ -50,7 +50,6 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(288.0, 128.0), //creaking_heart
     vec2(288.0, 144.0), //creaking_heart_awake
     vec2(288.0, 160.0), //creaking_heart_dormant
-    vec2(288.0, 176.0), //creaking_heart_top
     vec2(304.0, 16.0), //crimson_nylium
     vec2(304.0, 32.0), //crimson_nylium_side
     vec2(304.0, 48.0), //crimson_planks
@@ -247,12 +246,8 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(528.0, 480.0), //yellow_concrete_powder
     vec2(544.0, 48.0), //yellow_terracotta
     vec2(544.0, 64.0), //yellow_wool
-    vec2(960.0, 496.0), //sandstonecut_red_sandstone
-    vec2(976.0, 0.0), //sandstonecut_red_sandstone
-    vec2(976.0, 16.0), //sandstonecut_red_sandstone
-    vec2(976.0, 48.0), //sandstonecut_sandstone
-    vec2(976.0, 64.0), //sandstonecut_sandstone
-    vec2(976.0, 80.0), //sandstonecut_sandstone
+    vec2(976.0, 0.0), //sandstonecut_red_sandstone1
+    vec2(976.0, 64.0), //sandstonecut_sandstone1
     vec2(976.0, 112.0), //sandstonered_sandstone
     vec2(976.0, 128.0) //sandstonesandstone
 );
@@ -290,7 +285,7 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(544.0, 80.0), //bookshelf0
     vec2(544.0, 96.0), //bookshelf1
     vec2(544.0, 112.0), //bookshelf2
-    vec2(544.0, 128.0), //bookshelf3
+    vec2(544.0, 128.0) //bookshelf3
 );
 
 const vec2 borderLessRotateBlockOffsets[BLR_BLOCKS] = vec2[BLR_BLOCKS](
@@ -396,6 +391,7 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(256.0, 80.0), //composter_top
     vec2(272.0, 112.0), //crafter_bottom
     vec2(288.0, 112.0), //crafting_table_top
+    vec2(288.0, 176.0), //creaking_heart_top
     vec2(288.0, 192.0), //creaking_heart_top_awake
     vec2(288.0, 208.0), //creaking_heart_top_dormant
     vec2(304.0, 112.0), //crimson_stem_top
