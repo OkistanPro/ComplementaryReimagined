@@ -196,6 +196,7 @@ void main() {
         dither = fract(dither + goldenRatio * mod(float(frameCounter), 3600.0));
     #endif
     
+    vec3 worldGeoNormal = normalize(ViewToPlayer(normal * 10000.0));
 
     #ifdef TEXSYN_ENABLE
         ivec3 blockPosFrag = ivec3(floor(playerPosWithoutWaves + cameraPosition + 0.001));
@@ -213,14 +214,14 @@ void main() {
             vec2 maxUVValue = maxUVNormal(i);
             if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                 applyTilingAndBlending = true;
-                color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+                color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 1).rgba;
                 break;
             }
         }
 
         if(!applyTilingAndBlending && texCoord.x >= minUVdirtpath().x && texCoord.x <= maxUVdirtpath().x && texCoord.y >= minUVdirtpath().y && texCoord.y <= maxUVdirtpath().y) {
             applyTilingAndBlending = true;
-            color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+            color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 1).rgba;
         }
 
         // Loop through 4 bricks blocks
@@ -231,7 +232,7 @@ void main() {
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                    color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.25).rgba;
+                    color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 3).rgba;
                     break;
                 }
             }
@@ -245,7 +246,7 @@ void main() {
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 2.0, 0.5).rgba;
+                        color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 2).rgba;
                         break;
                 }
             }
@@ -259,7 +260,7 @@ void main() {
 
                 if (texCoord.x > minUVValue.x && texCoord.x < maxUVValue.x && texCoord.y > minUVValue.y && texCoord.y < maxUVValue.y) {
                     applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 0.5).rgba;
+                        color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 6).rgba;
                         break;
                 }
             }
@@ -273,7 +274,7 @@ void main() {
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlendingRotate(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+                        color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 9).rgba;
                         break;
                 }
             }
@@ -287,7 +288,7 @@ void main() {
 
                 if (texCoord.x >= minUVValue.x && texCoord.x <= maxUVValue.x && texCoord.y >= minUVValue.y && texCoord.y <= maxUVValue.y) {
                     applyTilingAndBlending = true;
-                        color.rgba = TilingAndBlendingRotate(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+                        color.rgba = TilingAndBlendingMethod(tex, texCoord, blockPosFrag, worldGeoNormal, 8).rgba;
                         break;
                 }
             }
@@ -371,7 +372,6 @@ void main() {
     float smoothnessG = 0.0, highlightMult = 1.0, emission = 0.0, noiseFactor = 1.0, snowFactor = 1.0, snowMinNdotU = 0.0, noPuddles = 0.0;
     vec2 lmCoordM = lmCoord;
     vec3 normalM = normal, geoNormal = normal, shadowMult = vec3(1.0);
-    vec3 worldGeoNormal = normalize(ViewToPlayer(geoNormal * 10000.0));
 
     #ifdef IPBR
         vec3 maRecolor = vec3(0.0);

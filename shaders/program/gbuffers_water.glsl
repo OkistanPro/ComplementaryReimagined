@@ -149,6 +149,32 @@ float GetLinearDepth(float depth) {
 //Program//
 void main() {
 
+	vec3 screenPos = vec3(gl_FragCoord.xy / vec2(viewWidth, viewHeight), gl_FragCoord.z);
+    #ifdef TAA
+        vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
+    #else
+        vec3 viewPos = ScreenToView(screenPos);
+    #endif
+    float lViewPos = length(viewPos);
+
+	vec3 nViewPos = normalize(viewPos);
+    float VdotU = dot(nViewPos, upVec);
+    float VdotS = dot(nViewPos, sunVec);
+    float VdotN = dot(nViewPos, normal);
+
+    // Materials
+    vec4 translucentMult = vec4(1.0);
+    bool noSmoothLighting = false, noDirectionalShading = false, translucentMultCalculated = false, noGeneratedNormals = false;
+    int subsurfaceMode = 0;
+    float smoothnessG = 0.0, highlightMult = 1.0, reflectMult = 0.0, emission = 0.0;
+    vec2 lmCoordM = lmCoord;
+    vec3 normalM = VdotN > 0.0 ? -normal : normal; // Inverted Iris Water Normal Workaround
+    vec3 geoNormal = normalM;
+    vec3 worldGeoNormal = normalize(ViewToPlayer(geoNormal * 10000.0));
+    vec3 shadowMult = vec3(1.0);
+    float fresnel = clamp(1.0 + dot(normalM, nViewPos), 0.0, 1.0);
+    
+
     #ifdef TEXSYN_ENABLE
     	ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
         vec4 colorP = texture2D(tex, texCoord);
@@ -164,14 +190,6 @@ void main() {
     #endif
 
     vec4 color = colorP * vec4(glColor.rgb, 1.0);
-
-    vec3 screenPos = vec3(gl_FragCoord.xy / vec2(viewWidth, viewHeight), gl_FragCoord.z);
-    #ifdef TAA
-        vec3 viewPos = ScreenToView(vec3(TAAJitter(screenPos.xy, -0.5), screenPos.z));
-    #else
-        vec3 viewPos = ScreenToView(screenPos);
-    #endif
-    float lViewPos = length(viewPos);
 
     float dither = Bayer64(gl_FragCoord.xy);
     #ifdef TAA
@@ -196,22 +214,6 @@ void main() {
         float materialMask = 0.0;
     #endif
 
-    vec3 nViewPos = normalize(viewPos);
-    float VdotU = dot(nViewPos, upVec);
-    float VdotS = dot(nViewPos, sunVec);
-    float VdotN = dot(nViewPos, normal);
-
-    // Materials
-    vec4 translucentMult = vec4(1.0);
-    bool noSmoothLighting = false, noDirectionalShading = false, translucentMultCalculated = false, noGeneratedNormals = false;
-    int subsurfaceMode = 0;
-    float smoothnessG = 0.0, highlightMult = 1.0, reflectMult = 0.0, emission = 0.0;
-    vec2 lmCoordM = lmCoord;
-    vec3 normalM = VdotN > 0.0 ? -normal : normal; // Inverted Iris Water Normal Workaround
-    vec3 geoNormal = normalM;
-    vec3 worldGeoNormal = normalize(ViewToPlayer(geoNormal * 10000.0));
-    vec3 shadowMult = vec3(1.0);
-    float fresnel = clamp(1.0 + dot(normalM, nViewPos), 0.0, 1.0);
     #ifdef IPBR
         #include "/lib/materials/materialHandling/translucentMaterials.glsl"
 
