@@ -1,10 +1,10 @@
 // uv offsets
-#define NUM_NORMAL_BLOCKS 240
+#define NUM_NORMAL_BLOCKS 248
 #define NUM_4BRICKS_BLOCKS 11
 #define NUM_2BRICKS_BLOCKS 17
 #define BLR_BLOCKS 44
-#define BORDER_LESS_BLOCKS 23
-#define ROTATE_BLOCKS 104
+#define BORDER_LESS_BLOCKS 24
+#define ROTATE_BLOCKS 108
 
 // Define UV offsets for each block category
 const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
@@ -21,11 +21,13 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(176.0, 0.0), //bedrock
     vec2(208.0, 112.0), //birch_leaves
     vec2(224.0, 0.0), //birch_log
+    vec2(224.0, 32.0), //birch_planks
     vec2(224.0, 112.0), //black_concrete
     vec2(240.0, 0.0), //black_concrete_powder
     vec2(240.0, 80.0), //black_terracotta
     vec2(240.0, 96.0), //black_wool
     vec2(240.0, 112.0), //blackstone
+    vec2(0.0, 128.0), //blackstone_top
     vec2(112.0, 128.0), //blue_concrete
     vec2(128.0, 128.0), //blue_concrete_powder
     vec2(160.0, 128.0), //blue_ice
@@ -35,6 +37,7 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(80.0, 144.0), //brain_coral_block
     vec2(192.0, 144.0), //brown_concrete
     vec2(208.0, 144.0), //brown_concrete_powder
+    vec2(0.0, 160.0), //brown_mushroom_block
     vec2(64.0, 160.0), //brown_terracotta
     vec2(80.0, 160.0), //brown_wool
     vec2(112.0, 160.0), //bubble_coral_block
@@ -45,6 +48,8 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(240.0, 224.0), //chorus_plant
     vec2(0.0, 240.0), //clay
     vec2(32.0, 240.0), //coal_block
+    vec2(64.0, 240.0), //coarse_dirt
+    vec2(80.0, 240.0), //cobbled_deepslate
     vec2(96.0, 240.0), //cobblestone
     vec2(288.0, 128.0), //creaking_heart
     vec2(288.0, 144.0), //creaking_heart_awake
@@ -118,6 +123,7 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(16.0, 272.0), //light_blue_wool
     vec2(64.0, 272.0), //light_gray_concrete
     vec2(80.0, 272.0), //light_gray_concrete_powder
+    vec2(160.0, 272.0), //light_gray_terracotta
     vec2(176.0, 272.0), //light_gray_wool
     vec2(320.0, 272.0), //lime_concrete
     vec2(336.0, 272.0), //lime_concrete_powder
@@ -153,6 +159,8 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(128.0, 320.0), //orange_concrete_powder
     vec2(208.0, 320.0), //orange_terracotta
     vec2(240.0, 320.0), //orange_wool
+    vec2(448.0, 320.0), //packed_ice
+    vec2(464.0, 320.0), //packed_mud
     vec2(0.0, 336.0), //pale_moss_block
     vec2(16.0, 336.0), //pale_moss_carpet
     vec2(96.0, 336.0), //pale_oak_leaves
@@ -348,6 +356,7 @@ const vec2 borderLessBlockOffsets[BORDER_LESS_BLOCKS] = vec2[BORDER_LESS_BLOCKS]
     vec2(496.0, 96.0), //iron_ore
     vec2(208.0, 256.0), //lapis_ore
     vec2(128.0, 304.0), //nether_gold_ore
+    vec2(160.0, 304.0), //nether_quartz_ore
     vec2(16.0, 320.0), //ochre_froglight_side
     vec2(32.0, 320.0), //ochre_froglight_top
     vec2(192.0, 336.0), //pearlescent_froglight_side
@@ -368,7 +377,6 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(176.0, 16.0), //bee_nest_bottom
     vec2(176.0, 80.0), //bee_nest_top
     vec2(224.0, 16.0), //birch_log_top
-    vec2(224.0, 32.0), //birch_planks
     vec2(64.0, 128.0), //blast_furnace_top
     vec2(32.0, 144.0), //bone_block_top
     vec2(176.0, 160.0), //cactus_bottom
@@ -403,6 +411,7 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(480.0, 208.0), //hopper_top
     vec2(496.0, 112.0), //iron_trapdoor
     vec2(496.0, 224.0), //jukebox_side
+    vec2(64.0, 256.0), //jungle_log_top
     vec2(448.0, 272.0), //lodestone_side
     vec2(464.0, 272.0), //lodestone_top
     vec2(272.0, 288.0), //mangrove_log_top
@@ -427,11 +436,15 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(32.0, 416.0), //scaffolding_bottom
     vec2(64.0, 416.0), //scaffolding_top
     vec2(96.0, 416.0), //sculk_catalyst_bottom
+    vec2(352.0, 416.0), //sea_lantern
     vec2(48.0, 432.0), //smithing_table_bottom
     vec2(96.0, 432.0), //smithing_table_top
     vec2(112.0, 432.0), //smoker_bottom
     vec2(176.0, 432.0), //smoker_top
+    vec2(208.0, 432.0), //smooth_stone
+    vec2(128.0, 448.0), //soul_soil
     vec2(288.0, 448.0), //spruce_log_top
+    vec2(384.0, 448.0), //stonecutter_bottom
     vec2(464.0, 448.0), //stripped_acacia_log_top
     vec2(496.0, 448.0), //stripped_bamboo_block_top
     vec2(16.0, 464.0), //stripped_birch_log_top
