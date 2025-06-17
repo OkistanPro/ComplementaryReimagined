@@ -1,5 +1,5 @@
 // uv offsets
-#define NUM_NORMAL_BLOCKS 241
+#define NUM_NORMAL_BLOCKS 240
 #define NUM_4BRICKS_BLOCKS 11
 #define NUM_2BRICKS_BLOCKS 17
 #define BLR_BLOCKS 44
@@ -202,7 +202,6 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(336.0, 416.0), //sculk_vein
     vec2(464.0, 416.0), //slime_block
     vec2(192.0, 432.0), //smooth_basalt
-    vec2(464.0, 432.0), //sniffer_egg_very_cracked_north
     vec2(112.0, 448.0), //soul_sand
     vec2(176.0, 448.0), //sponge
     vec2(256.0, 448.0), //spruce_leaves
