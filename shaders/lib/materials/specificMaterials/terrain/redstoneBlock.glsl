@@ -1,6 +1,6 @@
 materialMask = OSIEBCA * 5.0; // Redstone Fresnel
 
-float factor = pow2(color.r);
+float factor = pow2(color.r) * 1.5;
 smoothnessG = 0.4;
 highlightMult = factor + 0.2;
 
