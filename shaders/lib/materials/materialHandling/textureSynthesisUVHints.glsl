@@ -1,10 +1,10 @@
 // uv offsets
-#define NUM_NORMAL_BLOCKS 240
+#define NUM_NORMAL_BLOCKS 241
 #define NUM_4BRICKS_BLOCKS 11
 #define NUM_2BRICKS_BLOCKS 17
 #define BLR_BLOCKS 44
 #define BORDER_LESS_BLOCKS 23
-#define ROTATE_BLOCKS 104
+#define ROTATE_BLOCKS 103
 
 // Define UV offsets for each block category
 const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
@@ -21,6 +21,7 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(176.0, 0.0), //bedrock
     vec2(208.0, 112.0), //birch_leaves
     vec2(224.0, 0.0), //birch_log
+    vec2(224.0, 32.0), //birch_planks
     vec2(224.0, 112.0), //black_concrete
     vec2(240.0, 0.0), //black_concrete_powder
     vec2(240.0, 80.0), //black_terracotta
@@ -368,7 +369,6 @@ const vec2 rotateBlockOffsets[ROTATE_BLOCKS] = vec2[ROTATE_BLOCKS](
     vec2(176.0, 16.0), //bee_nest_bottom
     vec2(176.0, 80.0), //bee_nest_top
     vec2(224.0, 16.0), //birch_log_top
-    vec2(224.0, 32.0), //birch_planks
     vec2(64.0, 128.0), //blast_furnace_top
     vec2(32.0, 144.0), //bone_block_top
     vec2(176.0, 160.0), //cactus_bottom
