@@ -1,7 +1,7 @@
 // uv offsets
-#define NUM_NORMAL_BLOCKS 242
+#define NUM_NORMAL_BLOCKS 241
 #define NUM_4BRICKS_BLOCKS 11
-#define NUM_2BRICKS_BLOCKS 19
+#define NUM_2BRICKS_BLOCKS 17
 #define BLR_BLOCKS 44
 #define BORDER_LESS_BLOCKS 23
 #define ROTATE_BLOCKS 104
@@ -33,7 +33,6 @@ const vec2 normalBlockOffsets[NUM_NORMAL_BLOCKS] = vec2[NUM_NORMAL_BLOCKS](
     vec2(0.0, 144.0), //blue_wool
     vec2(16.0, 144.0), //bone_block_side
     vec2(80.0, 144.0), //brain_coral_block
-    vec2(128.0, 144.0), //brewing_stand_base
     vec2(192.0, 144.0), //brown_concrete
     vec2(208.0, 144.0), //brown_concrete_powder
     vec2(64.0, 160.0), //brown_terracotta
@@ -277,9 +276,7 @@ const vec2 bricks2BlockOffsets[NUM_2BRICKS_BLOCKS] = vec2[NUM_2BRICKS_BLOCKS](
     vec2(352.0, 128.0), //deepslate_bricks
     vec2(400.0, 128.0), //end_stone_bricks
     vec2(480.0, 288.0), //mossy_stone_bricks
-    vec2(0.0, 304.0), //mud_bricks
     vec2(432.0, 352.0), //polished_blackstone_bricks
-    vec2(48.0, 384.0), //quartz_bricks
     vec2(368.0, 448.0), //stone_bricks
     vec2(256.0, 496.0), //tuff_bricks
     vec2(544.0, 80.0), //bookshelf0

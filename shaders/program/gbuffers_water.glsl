@@ -151,12 +151,14 @@ void main() {
 
     #ifdef TEXSYN_ENABLE
     	ivec3 blockPosFrag = ivec3(floor(playerPos + cameraPosition + 0.001));
-    	#if ANISOTROPIC_FILTER > 0
-    		vec4 colorP = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
-    	#else
-    		vec4 colorP = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
-    	#endif
-    	
+        vec4 colorP = texture2D(tex, texCoord);
+        if (mat == 32000) { // Water
+            #if ANISOTROPIC_FILTER > 0
+    		    colorP = TilingAndBlendingAF(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+            #else
+                colorP = TilingAndBlending(tex, texCoord, blockPosFrag, 16.0, 1.0).rgba;
+            #endif
+        }
     #else
     	vec4 colorP = texture2D(tex, texCoord);
     #endif
